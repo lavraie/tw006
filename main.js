@@ -15,10 +15,11 @@ async function promiseAll() {
             .then(parseJSON)
     ))
         .then(data => {
+            console.log(data);
             var data2 = data[0].map(({ name, alpha2Code }) => ({
                 name, alpha2Code
             }));
-            var data3 = data[1].map(({ name, country }) => ({ name, country })
+            var data3 = data[1].map(({ name, country, lat, lng }) => ({ name, country, lat, lng})
             );
             data4 = [data2, data3]
             getData2(data4);
@@ -33,34 +34,24 @@ async function promiseAll() {
 function parseJSON(response) {
     return response.json();
 };
-
-function changedCountry(el) {
-    //var result = data3.filter((x) => x.name.match(el));
-    //console.log(result);
-    console.log("data4 " + el);
-};
-
-function cityData(it) {
-    console.log('it');
-    console.log(it);
-    // it.forEach(function (item) {
-    //     var option = document.createElement("option");
-    //     option.text = item.name.valueOf();
-    //     document.getElementById("citySelect").add(option);
-    // });
-};
 function countrySelected() {
     var el = document.getElementById("countrySelect").value;
     changedCountry(el);
-    console.log(el);
-
-    
+    function changedCountry(el) {
+        var result = data5[0].filter((x) => x.name.match(el));
+        var result2 = result[0].alpha2Code;
+        console.log(result[0].alpha2Code);
+        console.log(data5[1]);
+        var result1 = data5[1].filter(function(codeSelected){
+            return codeSelected.country == result2;
+        } );
+        console.log(result1);
+        console.log("changedCountry " + el);
+    };
 };
 function getData2(name) {
-    console.log("data4");
-    console.log('name ');
-    console.log(name[0]);
-    cityData(name[1]);
+    console.log(name);
+    data5 = name;
     data4[0].forEach(function (item) {
         var option = document.createElement("option");
         option.text = item.name.valueOf();
