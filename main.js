@@ -54,4 +54,7 @@ function getData2(name) {
         option.text = item.name.valueOf();
         document.getElementById("countrySelect").add(option);
     });
+    console.log("data4");
+
+
 }
