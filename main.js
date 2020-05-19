@@ -10,6 +10,8 @@ const urls = [
 // use map() to perform a fetch and handle the response for each url
 var data5 = [];
 
+
+
 async function promiseAll() {
     await Promise.all(urls.map(url =>
         fetch(url)
@@ -60,18 +62,33 @@ function countrySelected() {
 };
 
 function citySelected() {
+    
+
     var el = document.getElementById("citySelect").value;
     console.log(el);
     var result1 = data5[1].filter(function (codeSelected) {
         return codeSelected.name == el;
     });
     console.log(result1);
+    console.log(result1[0].lat);
+    console.log(result1[0].lng);
+
+
+    
+    mymap.flyTo([result1[0].lat, result1[0].lng], 9);
+    // mymap.setZoom(9);
+    var marker = L.marker([result1[0].lat, result1[0].lng]).addTo(mymap);
+
+
 
 
 }
 
 
 function getData2(name) {
+    
+
+
     console.log(name);
     data5 = name;
     data4[0].forEach(function (item) {
