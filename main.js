@@ -41,7 +41,7 @@ function countrySelected() {
 function changedCountry() {
     //var result = data3.filter((x) => x.name.match(el));
     //console.log(result);
-console.log("data4");
+console.log("data4 " + el);
 
 };
 
