@@ -9,9 +9,6 @@ const urls = [
 ];
 // use map() to perform a fetch and handle the response for each url
 var data5 = [];
-
-
-
 async function promiseAll() {
     await Promise.all(urls.map(url =>
         fetch(url)
@@ -52,7 +49,6 @@ function countrySelected() {
         console.log(result1);
         console.log("changedCountry " + el);
         document.getElementById("citySelect").innerHTML = "";
-
         result1.forEach(function (item) {
             var option = document.createElement("option");
             option.text = item.name.valueOf();
@@ -60,10 +56,7 @@ function countrySelected() {
         });
     };
 };
-
 function citySelected() {
-    
-
     var el = document.getElementById("citySelect").value;
     console.log(el);
     var result1 = data5[1].filter(function (codeSelected) {
@@ -72,23 +65,13 @@ function citySelected() {
     console.log(result1);
     console.log(result1[0].lat);
     console.log(result1[0].lng);
-
-
-    
     mymap.flyTo([result1[0].lat, result1[0].lng], 9);
     // mymap.setZoom(9);
     var marker = L.marker([result1[0].lat, result1[0].lng]).addTo(mymap);
-
-
-
-
+    var bounds = mymap.getBounds();
+    console.log(bounds);
 }
-
-
 function getData2(name) {
-    
-
-
     console.log(name);
     data5 = name;
     data4[0].forEach(function (item) {
@@ -97,8 +80,6 @@ function getData2(name) {
         document.getElementById("countrySelect").add(option);
     });
 }
-
-
 function getData() {
     promiseAll();
 }
