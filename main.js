@@ -18,30 +18,26 @@ async function promiseAll() {
     ))
         .then(data => {
 
-            console.log(data);
 
 
 
             var data2 = data[0].map(({ name, alpha2Code }) => ({
                 name, alpha2Code
             }));
-            console.log(data2);
-            window.data5 = data2;
 
 
             var data3 = data[1].map(({ name, country }) => ({ name, country })
             );
-    console.log("data3");
 
-            console.log(data3);
-            getData2(data3);
+            data4 = [data2, data3]
+            getData2(data4);
 
 
-            data2.forEach(function (item) {
-                var option = document.createElement("option");
-                option.text = item.name.valueOf();
-                document.getElementById("countrySelect").add(option);
-            });
+            // data2.forEach(function (item) {
+            //     var option = document.createElement("option");
+            //     option.text = item.name.valueOf();
+            //     document.getElementById("countrySelect").add(option);
+            // });
 
         })
 
@@ -65,7 +61,6 @@ function countrySelected() {
     changedCountry(el);
 
     console.log(el);
-    console.log(data5);
 
 
 
@@ -82,8 +77,14 @@ function getData() {
 }
 getData();
 
-function getData2(name){
-    console.log("data2");
+function getData2(name) {
+    console.log("data4");
 
     console.log(name);
+    data4[0].forEach(function (item) {
+        var option = document.createElement("option");
+        option.text = item.name.valueOf();
+        document.getElementById("countrySelect").add(option);
+    });
+
 }
