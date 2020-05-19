@@ -38,10 +38,7 @@ function countrySelected() {
     changedCountry(el);
     console.log(el);
 };
-function changedCountry() {
-    //var result = data3.filter((x) => x.name.match(el));
-    //console.log(result);
-};
+
 function getData() {
     promiseAll();
 }
@@ -54,7 +51,13 @@ function getData2(name) {
         option.text = item.name.valueOf();
         document.getElementById("countrySelect").add(option);
     });
+
+    function changedCountry() {
+        //var result = data3.filter((x) => x.name.match(el));
+        //console.log(result);
     console.log("data4");
+
+    };
 
 
 }
