@@ -38,7 +38,12 @@ function countrySelected() {
     changedCountry(el);
     console.log(el);
 };
-function changedCountry() {
+function cityData(it){
+    console.log('it');
+
+    console.log(it);
+};
+function changedCountry(el) {
     //var result = data3.filter((x) => x.name.match(el));
     //console.log(result);
 console.log("data4 " + el);
@@ -50,8 +55,14 @@ function getData() {
 }
 getData();
 function getData2(name) {
+
+    
     console.log("data4");
-    console.log(name);
+    console.log('name ');
+    console.log(name[0]);
+    cityData(name[1]);
+
+
     data4[0].forEach(function (item) {
         var option = document.createElement("option");
         option.text = item.name.valueOf();
