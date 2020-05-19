@@ -33,42 +33,41 @@ async function promiseAll() {
 function parseJSON(response) {
     return response.json();
 };
+
+function changedCountry(el) {
+    //var result = data3.filter((x) => x.name.match(el));
+    //console.log(result);
+    console.log("data4 " + el);
+};
+
+function cityData(it) {
+    console.log('it');
+    console.log(it);
+    // it.forEach(function (item) {
+    //     var option = document.createElement("option");
+    //     option.text = item.name.valueOf();
+    //     document.getElementById("citySelect").add(option);
+    // });
+};
 function countrySelected() {
     var el = document.getElementById("countrySelect").value;
     changedCountry(el);
     console.log(el);
-};
-function cityData(it){
-    console.log('it');
-
-    console.log(it);
-};
-function changedCountry(el) {
-    //var result = data3.filter((x) => x.name.match(el));
-    //console.log(result);
-console.log("data4 " + el);
-
-};
-
-function getData() {
-    promiseAll();
-}
-getData();
-function getData2(name) {
 
     
+};
+function getData2(name) {
     console.log("data4");
     console.log('name ');
     console.log(name[0]);
     cityData(name[1]);
-
-
     data4[0].forEach(function (item) {
         var option = document.createElement("option");
         option.text = item.name.valueOf();
         document.getElementById("countrySelect").add(option);
     });
-
-    
-
 }
+function getData() {
+    promiseAll();
+}
+getData();
