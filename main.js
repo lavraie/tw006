@@ -19,7 +19,7 @@ async function promiseAll() {
             var data2 = data[0].map(({ name, alpha2Code }) => ({
                 name, alpha2Code
             }));
-            var data3 = data[1].map(({ name, country, lat, lng }) => ({ name, country, lat, lng})
+            var data3 = data[1].map(({ name, country, lat, lng }) => ({ name, country, lat, lng })
             );
             data4 = [data2, data3]
             getData2(data4);
@@ -42,13 +42,34 @@ function countrySelected() {
         var result2 = result[0].alpha2Code;
         console.log(result[0].alpha2Code);
         console.log(data5[1]);
-        var result1 = data5[1].filter(function(codeSelected){
+        var result1 = data5[1].filter(function (codeSelected) {
             return codeSelected.country == result2;
-        } );
+        });
+        var result1 = result1.reverse();
         console.log(result1);
         console.log("changedCountry " + el);
+        document.getElementById("citySelect").innerHTML = "";
+
+        result1.forEach(function (item) {
+            var option = document.createElement("option");
+            option.text = item.name.valueOf();
+            document.getElementById("citySelect").add(option);
+        });
     };
 };
+
+function citySelected() {
+    var el = document.getElementById("citySelect").value;
+    console.log(el);
+    var result1 = data5[1].filter(function (codeSelected) {
+        return codeSelected.name == el;
+    });
+    console.log(result1);
+
+
+}
+
+
 function getData2(name) {
     console.log(name);
     data5 = name;
@@ -58,6 +79,8 @@ function getData2(name) {
         document.getElementById("countrySelect").add(option);
     });
 }
+
+
 function getData() {
     promiseAll();
 }
