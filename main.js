@@ -65,7 +65,7 @@ function citySelected() {
     console.log(result1);
     console.log(result1[0].lat);
     console.log(result1[0].lng);
-    mymap.flyTo([result1[0].lat, result1[0].lng], 9);
+    mymap.flyTo([result1[0].lat, result1[0].lng], 14);
     // mymap.setZoom(9);
     var marker = L.marker([result1[0].lat, result1[0].lng]).addTo(mymap);
     var bounds = mymap.getBounds();
@@ -86,9 +86,20 @@ function getData() {
 getData();
 
 function myFunction() {
-    let url = 'https://www.overpass-api.de/api/interpreter?data=[out:json];node[amenity=restaurant](46.1138,-1.1630,46.1925,-1.1511);out meta;';
     var bounds = mymap.getBounds();
     console.log(bounds);
+    console.log(bounds._northEast.lat);
+    
+        
+                
+    
+
+    // let url = 'https://www.overpass-api.de/api/interpreter?data=[out:json];node[amenity=restaurant](46.1138,-1.1630,46.1925,-1.1511);out meta;';
+
+            
+    let url = `https://www.overpass-api.de/api/interpreter?data=[out:json];node[amenity=restaurant](${bounds._southWest.lat},${bounds._southWest.lng},${bounds._northEast.lat},${bounds._northEast.lng});out meta;`;
+
+
     fetch(url)
         .then(
             function (response) {
@@ -100,7 +111,19 @@ function myFunction() {
 
                 // Examine the text in the response
                 response.json().then(function (data) {
-                    console.log(data);
+                    // console.log(data);
+                    let el = data.elements;
+                    // console.log(el);
+                    el.forEach(sortFunc);
+
+                    function sortFunc(item){
+                        // console.log(item.lat);
+                        var marker = L.marker([item.lat, item.lon]).addTo(mymap);
+                        console.log(L);
+
+                    }
+
+
                 });
             }
         )
