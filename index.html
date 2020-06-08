@@ -5,13 +5,83 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="mystyle.css">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+    <!-- <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
         integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
-        crossorigin="" />
+        crossorigin="" /> -->
     <!-- Make sure you put this AFTER Leaflet's CSS -->
-    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+    <!-- <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
         integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
-        crossorigin=""></script>
+        crossorigin=""></script> -->
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.css" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.js"></script>
+
+    <script src="https://open.mapquestapi.com/sdk/leaflet/v2.2/mq-map.js?key=5VcmZZd1rLnrRUP4DUbIb1eE0FlY9P1g"></script>
+    <script
+        src="https://open.mapquestapi.com/sdk/leaflet/v2.2/mq-routing.js?key=5VcmZZd1rLnrRUP4DUbIb1eE0FlY9P1g"></script>
+
+
+
+    <script type="text/javascript">
+        window.onload = function () {
+            var marker = L.marker([51.5, -0.09]).addTo(mymap);
+            // var marker1 = L.marker([51.5, -0.091]).addTo(mymap);
+
+
+            var dir;
+
+            // map = L.map('mapid', {
+            //     layers: MQ.mapLayer(),
+            // });
+
+            dir = MQ.routing.directions()
+                .on('success', function (data) {
+                    var legs = data.route.legs,
+                        html = '',
+                        maneuvers,
+                        i;
+
+                    if (legs && legs.length) {
+                        maneuvers = legs[0].maneuvers;
+
+                        for (i = 0; i < maneuvers.length; i++) {
+                            html += (i + 1) + '. ';
+                            html += maneuvers[i].narrative + '' + '</br>';
+                        }
+
+                        L.DomUtil.get('route-narrative').innerHTML = html;
+
+                    }
+                });
+
+            dir.route({
+                locations: [{
+
+                    latLng: {
+                        lat: 51.49,
+                        lng: -0.09
+                    }
+                }
+                    ,
+                {
+                    latLng: {
+
+                        lat: 51.5,
+                        lng: -0.08
+                    }
+
+
+                }]
+            });
+
+            mymap.addLayer(MQ.routing.routeLayer({
+                directions: dir,
+                fitBounds: false
+            }));
+        }
+    </script>
 
     <title>Document Leaflet</title>
 </head>
@@ -29,15 +99,22 @@
     <select id="citySelect" onChange="citySelected()"></select>
 
     <button onclick="myFunction()">Click me</button>
+    <button onclick="myFunction1()">Click me</button>
+
     <br>
     <br>
 
 
     <div id="mapid"></div>
     <script>
-        var mymap = L.map('mapid').setView([51.505, -0.09], 13);
+        var mymap = L.map('mapid', {
+            layers: MQ.mapLayer(),
+        }).setView([51.505, -0.09], 13);
+        // var mapstyle = 'https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png'
+        // var mapstyle = 'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw';
+        var mapstyle = 'https://a.tiles.mapbox.com/v3/mapbox.world-bright/{z}/{x}/{y}.png';
 
-        L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+        L.tileLayer(mapstyle, {
             maxZoom: 18,
             attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
                 '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
@@ -48,6 +125,78 @@
         }).addTo(mymap);
 
     </script>
+
+
+    <div class="wrap">
+
+        <div id="route-narrative01">
+            Hello you
+            <br>
+            Hello me
+
+        </div>
+        <!-- </div> -->
+
+        <!-- <div class="wrap" > -->
+        <div id="route-narrative" background-color="aqua"></div>
+        <br>
+        <div id="route-narrative02">
+            Hello you
+            <br>
+            Hello me
+
+        </div>
+    </div>
+
+
+    <div class="grid01">
+        <div id="item1"></div>
+        <div id="item2"></div>
+        <div id="item3"></div>
+    </div>
+    <div class="grid-container">
+        <div class="grid-item">1</div>
+        <div class="grid-item">2</div>
+        <div class="grid-item">3</div>
+        <div class="grid-item">4</div>
+        <div class="grid-item">5</div>
+        <div class="grid-item">6</div>
+        <div class="grid-item">7</div>
+        <div class="grid-item">8</div>
+        <div class="grid-item">9</div>
+    </div>
+    <!-- <cafes01> -->
+    <br>
+    <br>
+
+    <ol class="cafes23" id="cafes" style="background-color:rgb(211, 209, 113)"></ol>
+    <!-- </cafes01> -->
+    <br>
+    <ul class="cafes23" id="cafes02" style="background-color:blueviolet"></ul>
+    <br>
+    <ul class="cafes23" id="cafes03" style="background-color:red"></ul>
+    <br>
+
+    <ul>
+        <li>one</li>
+        <li>two</li>
+        <li>three</li>
+    </ul>
+    <script>
+        $("li").click(function () {
+            // console.log("li clicked");
+
+
+            $(this).parent().prepend($(this));
+
+        });
+
+    </script>
+
+    <script>
+
+    </script>
+
 </body>
 
 </html>
