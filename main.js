@@ -15,7 +15,6 @@ async function promiseAll() {
             .then(parseJSON)
     ))
         .then(data => {
-            console.log(data);
             var data2 = data[0].map(({ name, alpha2Code }) => ({
                 name, alpha2Code
             }));
@@ -40,14 +39,10 @@ function countrySelected() {
     function changedCountry(el) {
         var result = data5[0].filter((x) => x.name.match(el));
         var result2 = result[0].alpha2Code;
-        console.log(result[0].alpha2Code);
-        console.log(data5[1]);
         var result1 = data5[1].filter(function (codeSelected) {
             return codeSelected.country == result2;
         });
         var result1 = result1.reverse();
-        console.log(result1);
-        console.log("changedCountry " + el);
         document.getElementById("citySelect").innerHTML = "";
         result1.forEach(function (item) {
             var option = document.createElement("option");
@@ -58,22 +53,14 @@ function countrySelected() {
 };
 function citySelected() {
     var el = document.getElementById("citySelect").value;
-    console.log(el);
     var result1 = data5[1].filter(function (codeSelected) {
         return codeSelected.name == el;
     });
-    console.log(result1);
-    console.log(result1[0].lat);
-    console.log(result1[0].lng);
-    // mymap.flyTo([result1[0].lat, result1[0].lng], 14);
     mymap.setView([result1[0].lat, result1[0].lng], 13);
-    // mymap.setZoom(9);
     var marker = L.marker([result1[0].lat, result1[0].lng]).addTo(mymap);
     var bounds = mymap.getBounds();
-    console.log(bounds);
 }
 function getData2(name) {
-    console.log(name);
     data5 = name;
     data4[0].forEach(function (item) {
         var option = document.createElement("option");
@@ -91,9 +78,6 @@ var cities = [];
 var assetLayer;
 function myFunction() {
     var bounds = mymap.getBounds();
-    console.log(bounds);
-    console.log(bounds._northEast.lat);
-    // let url = 'https://www.overpass-api.de/api/interpreter?data=[out:json];node[amenity=restaurant](46.1138,-1.1630,46.1925,-1.1511);out meta;';
     let url = `https://www.overpass-api.de/api/interpreter?data=[out:json];node[amenity=cafe](${bounds._southWest.lat},${bounds._southWest.lng},${bounds._northEast.lat},${bounds._northEast.lng});out meta;`;
     fetch(url)
         .then(
@@ -105,9 +89,7 @@ function myFunction() {
                 }
                 // Examine the text in the response
                 response.json().then(function response(data) {
-                    // console.log(data);
                     let el = data.elements;
-                    // console.log(el);
                     el.forEach(sortFunc);
                     function sortFunc(item) {
                         var myIcon = L.icon({
@@ -115,30 +97,26 @@ function myFunction() {
                             iconSize: [50, 50],
                             iconAnchor: [22, 94],
                             popupAnchor: [-3, -76],
-                            // shadowUrl: 'my-icon-shadow.png',
-                            // shadowSize: [68, 95],
-                            // shadowAnchor: [22, 94]
                         });
                         console.log(item);
-                        var pop = "<dd>" + item.tags.name + "</dd>" + "<dd>" + item.tags.phone + "</dd>";
+                        if (typeof item.tags.phone !== "undefined") {
+                            var pop = "<dd>" + item.tags.name + "</dd>" + "<dd>" + item.tags.phone + "</dd>";
+                            var pop01 = item.tags.name + " " + item.tags.phone;
+                        }
+                        else {
+                            var pop = "<dd>" + item.tags.name + "</dd>";
+                            var pop01 = item.tags.name;
+                        }
                         mark.push(L.marker([item.lat, item.lon], { icon: myIcon }).bindPopup(pop));
                         var loc = [item.tags.name, item.lat, item.lon];
-                        // console.log(loc);
                         routes.push(loc);
-                        // console.log(routes);
-                        // console.log(marker);
-                        // L.DomUtil.get('cafes').append = pop;
-                        var pop01 = item.tags.name + " " + item.tags.phone;
                         var pop02 = pop01;
                         var node = document.createElement("LI");
                         node.setAttribute("class", "foo");
                         var node01 = document.createElement("LI");
                         node01.setAttribute("class", "foo");
-                        // Create a <li> node
-                        // Create a <li> node
                         var textnode = document.createTextNode(pop01);
                         var textnode01 = document.createTextNode(pop02);         // Create a text node
-                        // Create a text node
                         node.appendChild(textnode);
                         node01.appendChild(textnode01);
                         document.getElementById("cafes").appendChild(node01);     // Append <li> to <ul> with id="myList"
@@ -153,14 +131,11 @@ function myFunction() {
                     var i;
                     for (i = 0; i < myNodelist.length; i++) {
                         const span = document.createElement("SPAN");
-                        // var txt = document.createTextNode("\u00D7");
                         const txt = document.createTextNode(" x ");
-                        /* <i class="arrow up"></i> */
                         const span01 = document.createElement("SPAN");
                         span.className = "close";
                         myNodelist[i].id = i;
                         span.appendChild(txt);
-                        // myNodelist[i].appendChild(span);
                         const domString = `<span id=${i}><i class="arrow up"></i></span>`;
                         const domStringdown = `<span id=${i}><i class="arrow down"></i></span>`;
                         const close01 = `<span id=${i}><i class="close"> x </i></span>`;
@@ -173,25 +148,16 @@ function myFunction() {
                     for (i = 0; i < close.length; i++) {
                         close[i].onclick = function () {
                             const div = this.parentElement;
-                            console.log(this.parentElement);
                             div.parentNode.removeChild(div);
-                            // div.style.display = "none";
                         }
                     }
                     var x = document.getElementsByTagName("LI");
                     var f;
                     for (f = 0; f < x.length; f++) {
                         x[f].addEventListener("click", function () {
-                            // console.log("li clicked");
                         });
                     }
                     assetLayer = L.layerGroup(mark).addTo(mymap);
-                    console.log(mark);
-                    // L.control.layers(null, mark).addTo(mymap);
-                    // console.log(L.layerGroup);
-                    // myFunction1(assetLayer);
-                    console.log(assetLayer._leaflet_id);
-                    console.log(assetLayer);
                     assetLayer.color = '#e85141';
                 });
             }
@@ -202,15 +168,7 @@ function myFunction() {
 }
 function myFunction1() {
     function route01(i) {
-        // console.log(routes);
-        // console.log(routes[0][1]);
-
-        // var marker = L.marker([51.5, -0.09]).addTo(mymap);
-        // var marker1 = L.marker([51.5, -0.091]).addTo(mymap);
         var dir;
-        // map = L.map('mapid', {
-        //     layers: MQ.mapLayer(),
-        // });
         dir = MQ.routing.directions()
             .on('success', function (data) {
                 var legs = data.route.legs,
@@ -226,64 +184,36 @@ function myFunction1() {
                     L.DomUtil.get('route-narrative').innerHTML = html;
                 }
             });
-            dir.route({
-                locations: [{
-                    latLng: {
-                        lat: routes[i][1],
-                        lng: routes[i][2]
-                    }
+        dir.route({
+            locations: [{
+                latLng: {
+                    lat: routes[i][1],
+                    lng: routes[i][2]
                 }
-                    ,
-                {
-                    latLng: {
-                        lat: routes[i++][1],
-                        lng: routes[i++][2]
-                    }
-                }]
-            });
-            mymap.addLayer(MQ.routing.routeLayer({
-                directions: dir,
-                fitBounds: false
-            }));
-        
+            }
+                ,
+            {
+                latLng: {
+                    lat: routes[i++][1],
+                    lng: routes[i++][2]
+                }
+            }]
+        });
+        mymap.addLayer(MQ.routing.routeLayer({
+            directions: dir,
+            fitBounds: false
+        }));
     }
-    for (i = 0; i < routes.length-1; i++) {
-
-    route01(i);
+    for (i = 0; i < routes.length - 1; i++) {
+        route01(i);
     }
-    // console.log(mark);
-    // mymap.removeLayer(assetLayer);
-    // assetLayer.clearLayers();
-    // let list = document.getElementsByClassName("cafes23");     // Append <li> to <ul> with id="myList"
-    // document.getElementById("cafes02").innerHTML = "";     // Append <li> to <ul> with id="myList"
-    // document.getElementById("cafes03").innerHTML = "";     // Append <li> to <ul> with id="myList"
-    // let i;
-    // for (i = 0; i < list.length; i++) {
-    //     while (list[i].hasChildNodes()) {
-    //         list[i].removeChild(list[i].firstChild);
-    //     }
-    // }
-    // var getel = document.querySelectorAll("#cafes, #cafes02, #cafes03");
-    // var i;
-    // for(i=0; i<getel.length; i++){
-    // getel[i].innerHTML="";
-    // }
     function arrows() {
         const listUl = document.getElementById('cafes');
-        console.log(listUl);
         listUl.addEventListener("click", (event) => {
             let li = event.target;
             let f = li.parentElement.id;
-            console.log(f);
-            console.log(li.parentElement);
-            console.log(listUl.children.length);
-            // console.log(li.parentElement.id);
-            // console.log(li.parentElement.childNodes);
-            // console.log(listUl.childNodes[f]);
             li01 = listUl.childNodes[f];
             if (event.target.className === 'arrow up') {
-                // console.log(listUl.childNodes[f]);
-                // listUl.insertBefore(li01, listUl.firstChild);
                 listUl.insertBefore(li01, li01.previousElementSibling);
                 for (i = 0; i < listUl.children.length; i++) {
                     listUl.children[i].children[0].id = i;
@@ -310,8 +240,6 @@ function myFunction1() {
                     listUl.children[i].children[1].id = i;
                     listUl.children[i].children[2].id = i;
                 }
-                console.log(listUl);
-                //    document.getElementById('cafes02').appendChild(li01);
             }
         });
     }
