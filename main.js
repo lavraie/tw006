@@ -85,6 +85,7 @@ function getData() {
     promiseAll();
 }
 getData();
+var routes = [];
 var mark = [];
 var cities = [];
 var assetLayer;
@@ -93,7 +94,7 @@ function myFunction() {
     console.log(bounds);
     console.log(bounds._northEast.lat);
     // let url = 'https://www.overpass-api.de/api/interpreter?data=[out:json];node[amenity=restaurant](46.1138,-1.1630,46.1925,-1.1511);out meta;';
-    let url = `https://www.overpass-api.de/api/interpreter?data=[out:json];node[amenity=cinema](${bounds._southWest.lat},${bounds._southWest.lng},${bounds._northEast.lat},${bounds._northEast.lng});out meta;`;
+    let url = `https://www.overpass-api.de/api/interpreter?data=[out:json];node[amenity=cafe](${bounds._southWest.lat},${bounds._southWest.lng},${bounds._northEast.lat},${bounds._northEast.lng});out meta;`;
     fetch(url)
         .then(
             function (response) {
@@ -106,7 +107,7 @@ function myFunction() {
                 response.json().then(function response(data) {
                     // console.log(data);
                     let el = data.elements;
-                    console.log(el);
+                    // console.log(el);
                     el.forEach(sortFunc);
                     function sortFunc(item) {
                         var myIcon = L.icon({
@@ -121,6 +122,10 @@ function myFunction() {
                         console.log(item);
                         var pop = "<dd>" + item.tags.name + "</dd>" + "<dd>" + item.tags.phone + "</dd>";
                         mark.push(L.marker([item.lat, item.lon], { icon: myIcon }).bindPopup(pop));
+                        var loc = [item.tags.name, item.lat, item.lon];
+                        // console.log(loc);
+                        routes.push(loc);
+                        // console.log(routes);
                         // console.log(marker);
                         // L.DomUtil.get('cafes').append = pop;
                         var pop01 = item.tags.name + " " + item.tags.phone;
@@ -147,29 +152,27 @@ function myFunction() {
                     var myNodelist = document.getElementsByTagName("LI");
                     var i;
                     for (i = 0; i < myNodelist.length; i++) {
-                        var span = document.createElement("SPAN");
+                        const span = document.createElement("SPAN");
                         // var txt = document.createTextNode("\u00D7");
-                        var txt = document.createTextNode(" x ");
+                        const txt = document.createTextNode(" x ");
                         /* <i class="arrow up"></i> */
-                        var span01 = document.createElement("SPAN");
+                        const span01 = document.createElement("SPAN");
                         span.className = "close";
                         myNodelist[i].id = i;
                         span.appendChild(txt);
                         // myNodelist[i].appendChild(span);
-                        var domString = `<span id=${i}><i class="arrow up"></i></span>`;
-                        var domStringdown = `<span id=${i}><i class="arrow down"></i></span>`;
-                        var close01 = `<span id=${i}><i class="close"> x </i></span>`;
-                        var rightSpan = document.createElement("SPAN");
-                        var rightArrow = `<span id=${i}><i class="arrow right"></i></span>`;
-
-
-                        myNodelist[i].innerHTML += domString + " " + i + " " + domStringdown + " " + close01 + " " + rightArrow;
+                        const domString = `<span id=${i}><i class="arrow up"></i></span>`;
+                        const domStringdown = `<span id=${i}><i class="arrow down"></i></span>`;
+                        const close01 = `<span id=${i}><i class="close"> x </i></span>`;
+                        const rightSpan = document.createElement("SPAN");
+                        const rightArrow = `<span id=${i}><i class="arrow right"></i></span>`;
+                        myNodelist[i].innerHTML += "   " + domString + " " + i + " " + domStringdown + " " + close01 + " " + rightArrow;
                     }
                     var close = document.getElementsByClassName("close");
                     var i;
                     for (i = 0; i < close.length; i++) {
                         close[i].onclick = function () {
-                            var div = this.parentElement;
+                            const div = this.parentElement;
                             console.log(this.parentElement);
                             div.parentNode.removeChild(div);
                             // div.style.display = "none";
@@ -198,7 +201,57 @@ function myFunction() {
         });
 }
 function myFunction1() {
-    console.log(mark);
+    function route01(i) {
+        // console.log(routes);
+        // console.log(routes[0][1]);
+
+        // var marker = L.marker([51.5, -0.09]).addTo(mymap);
+        // var marker1 = L.marker([51.5, -0.091]).addTo(mymap);
+        var dir;
+        // map = L.map('mapid', {
+        //     layers: MQ.mapLayer(),
+        // });
+        dir = MQ.routing.directions()
+            .on('success', function (data) {
+                var legs = data.route.legs,
+                    html = '',
+                    maneuvers,
+                    i;
+                if (legs && legs.length) {
+                    maneuvers = legs[0].maneuvers;
+                    for (i = 0; i < maneuvers.length; i++) {
+                        html += (i + 1) + '. ';
+                        html += maneuvers[i].narrative + '' + '</br>';
+                    }
+                    L.DomUtil.get('route-narrative').innerHTML = html;
+                }
+            });
+            dir.route({
+                locations: [{
+                    latLng: {
+                        lat: routes[i][1],
+                        lng: routes[i][2]
+                    }
+                }
+                    ,
+                {
+                    latLng: {
+                        lat: routes[i++][1],
+                        lng: routes[i++][2]
+                    }
+                }]
+            });
+            mymap.addLayer(MQ.routing.routeLayer({
+                directions: dir,
+                fitBounds: false
+            }));
+        
+    }
+    for (i = 0; i < routes.length-1; i++) {
+
+    route01(i);
+    }
+    // console.log(mark);
     // mymap.removeLayer(assetLayer);
     // assetLayer.clearLayers();
     // let list = document.getElementsByClassName("cafes23");     // Append <li> to <ul> with id="myList"
@@ -215,7 +268,6 @@ function myFunction1() {
     // for(i=0; i<getel.length; i++){
     // getel[i].innerHTML="";
     // }
-
     function arrows() {
         const listUl = document.getElementById('cafes');
         console.log(listUl);
@@ -234,44 +286,33 @@ function myFunction1() {
                 // listUl.insertBefore(li01, listUl.firstChild);
                 listUl.insertBefore(li01, li01.previousElementSibling);
                 for (i = 0; i < listUl.children.length; i++) {
-
                     listUl.children[i].children[0].id = i;
                     listUl.children[i].children[1].id = i;
                     listUl.children[i].children[2].id = i;
                 }
                 console.log(listUl);
-
             }
             if (event.target.className === 'arrow down') {
                 listUl.insertBefore(li01.nextElementSibling, li01);
                 console.log(li01);
-
                 for (i = 0; i < listUl.children.length; i++) {
-
                     listUl.children[i].children[0].id = i;
                     listUl.children[i].children[1].id = i;
                     listUl.children[i].children[2].id = i;
                 }
                 console.log(listUl);
-
-
             }
             if (event.target.className === 'arrow right') {
                 var node = document.createElement("LI");
-
                 document.getElementById("cafes02").appendChild(li01);     // Append <li> to <ul> with id="myList"
                 for (i = 0; i < listUl.children.length; i++) {
-
                     listUl.children[i].children[0].id = i;
                     listUl.children[i].children[1].id = i;
                     listUl.children[i].children[2].id = i;
                 }
                 console.log(listUl);
                 //    document.getElementById('cafes02').appendChild(li01);
-
-
             }
-
         });
     }
     arrows();
