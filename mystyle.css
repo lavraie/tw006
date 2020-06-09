@@ -24,12 +24,7 @@ height: 100px;
 grid-template-columns: repeat(3, 1fr);
 grid-template-rows: 100px;
 } */
-.cafes01{
-    display: grid;
-    grid-template-columns: auto auto auto;
 
-
-}
    .wrap {
        display: grid;
        grid-template-columns: auto auto auto auto auto;

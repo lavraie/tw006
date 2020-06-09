@@ -109,71 +109,38 @@ function myFunction() {
                         node.appendChild(textnode);
                         const node01 = node.cloneNode(true);
                         node01.setAttribute("class", "cafes01");
-                        document.getElementById("cafes").appendChild(node01);
-                        if (typeof item.tags.phone !== 'undefined') {
-                            node.setAttribute("class", "cafes03");
-                            document.getElementById("cafes03").appendChild(node);
-                        } else {
-                            node.setAttribute("class", "cafes02");
-                            document.getElementById("cafes02").appendChild(node);
-                        }
-                    }
-                    var myNodelist = document.getElementsByTagName("LI");
-                    var i;
-                    for (i = 0; i < myNodelist.length; i++) {
-                        myNodelist[i].id = i;
+                        const listUl = document.getElementsByTagName("LI");
+                        i = listUl.length;
                         const domString = `<span id=${i}><i class="arrow up"></i></span>`;
                         const domStringdown = `<span id=${i}><i class="arrow down"></i></span>`;
                         const close01 = `<span id=${i}><i class="close"> x </i></span>`;
                         const rightArrow = `<span id=${i}><i class="arrow right"></i></span>`;
-                        myNodelist[i].innerHTML += "   " + domString + " " + i + " " + domStringdown + " " + close01 + " " + rightArrow;
+                        node01.innerHTML += "   " + domString + " " + i + " " + domStringdown + " " + close01 + " " + rightArrow;
+                        node01.addEventListener("click", (event) => {
+                            let li = event.target.parentElement.parentElement;
+                            console.log(li.parentElement.id);
+                            const clName = document.getElementsByClassName("cafes23");
+                            const clNameIds = [];
+                            for (i = 0; i < clName.length; i++) {
+                                clNameIds.push(clName[i].id);
+                            }
+                            let found = clNameIds.indexOf(li.parentElement.id);
+                            console.log(found);
+                            if (event.target.className === 'arrow up') {
+                                li.parentElement.insertBefore(li, li.previousElementSibling);
+                            };
+                            if (event.target.className === 'arrow down') {
+                                li.parentElement.insertBefore(li.nextElementSibling, li);
+                            };
+                            if (event.target.className === 'arrow right') {
+                                clName[found + 1].appendChild(li);
+                            };
+                        });
+                        document.getElementById("cafes").appendChild(node01);
                     }
                     assetLayer = L.layerGroup(mark).addTo(mymap);
                     assetLayer.color = '#e85141';
                 });
-                const listUl = document.getElementsByTagName("SPAN");
-                // const listUl1 = document.getElementById('cafes');
-                console.log(listUl);
-                console.log(listUl[0].children[0]);
-                for (i = 0; i < listUl.length; i++) {
-                    listUl[i].children.addEventListener("click", (event) => {
-                        let li = event.target;
-                        console.log(event.target);
-                        // console.log(li01);
-                        if (event.target.className === 'arrow up') {
-                            listUl[i].insertBefore(li01, li01.previousElementSibling);
-                            for (i = 0; i < listUl[i].children.length; i++) {
-                                listUl[i].children[i].children[0].id = i;
-                                listUl[i].children[i].children[1].id = i;
-                                listUl[i].children[i].children[2].id = i;
-                            }
-                        }
-                        if (event.target.className === 'arrow down') {
-                            listUl[i].insertBefore(li01.nextElementSibling, li01);
-                            for (i = 0; i < listUl[i].children.length; i++) {
-                                listUl[i].children[i].children[0].id = i;
-                                listUl[i].children[i].children[1].id = i;
-                                listUl[i].children[i].children[2].id = i;
-                            }
-                        }
-                        if (event.target.className === 'arrow right') {
-                            document.getElementById("cafes02").appendChild(li01);
-                            for (i = 0; i < listUl[i].children.length; i++) {
-                                listUl[i].children[i].children[0].id = i;
-                                listUl[i].children[i].children[1].id = i;
-                                listUl[i].children[i].children[2].id = i;
-                            }
-                        }
-                        if (event.target.className === 'close') {
-                            document.getElementById("cafes03").appendChild(li01);
-                            for (i = 0; i < listUl[i].children.length; i++) {
-                                listUl[i].children[i].children[0].id = i;
-                                listUl[i].children[i].children[1].id = i;
-                                listUl[i].children[i].children[2].id = i;
-                            }
-                        }
-                    });
-                }
             }
         )
         .catch(function (err) {
