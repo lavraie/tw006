@@ -1,59 +1,56 @@
+#countrySelect {
+    width: 150px;
+}
 
-#countrySelect{
-    width: 150px;   
-   }
-   
-   #countrySelect option{
-    width: 150px;   
-   }
-   
-   #citySelect{
-    width: 150px;   
-   }
-   
-   #cityySelect option{
-    width: 150px;   
-   }
+#countrySelect option {
+    width: 150px;
+}
 
-   #mapid { height: 580px; }
+#citySelect {
+    width: 150px;
+}
 
-        
-   /* .wrap {
+#cityySelect option {
+    width: 150px;
+}
+
+#mapid {
+    height: 580px;
+}
+
+
+/* .wrap {
 display: grid;
 height: 100px;
 grid-template-columns: repeat(3, 1fr);
 grid-template-rows: 100px;
 } */
 
-   .wrap {
-       display: grid;
-       grid-template-columns: auto auto auto auto auto;
-       /* grid-template-rows: 80px 50px; */
+.wrap {
+    display: grid;
+    grid-template-columns: auto auto auto auto auto;
+    /* grid-template-rows: 80px 50px; */
+    text-align: center;
+    background-color: aquamarine;
+    width: 1fr;
+    border: 5px solid green;
+    padding: 50px;
+    margin: 20px;
+}
 
+.wrap:nth-child(odd) {
+    background-color: rgb(58, 201, 58);
+    text-align: right;
+}
 
-       text-align: center;
-       background-color: aquamarine;
-       width: 1fr;
-       border: 5px solid green;
-       padding: 50px;
-       margin: 20px;
-
-   }
-
-   .wrap:nth-child(odd) {
-       background-color: rgb(58, 201, 58);
-       text-align: right;
-
-   }
-
-   #route-narrative02 {
+#route-narrative02 {
     background-color: lime;
     grid-row: 3/3;
     grid-column: 4/4;
+}
 
-   }
 
-   /* .wrap {
+/* .wrap {
 border: 5px outset red;
 background-color: lightblue;
 text-align: center;
@@ -62,69 +59,54 @@ text-align: center;
 .grid01 {
     display: grid;
     height: 100px;
-    grid-template-columns: repeat(15,1fr 1fr 1fr 1fr 1fr );
+    grid-template-columns: repeat(15, 1fr 1fr 1fr 1fr 1fr);
     grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
-  }
-  
-  #item1 {
-    /* grid-column: 3 / 6; */
-    background-color: lime;
-    grid-row: 1/4;
+}
 
 
-  }
-  
-  #item2 {
-    background-color: yellow;
-    grid-column: 2 / 3;
-  }
-  
-  #item3 {
-    background-color: blue;
-    grid-column: span 2 / 4;
-    grid-row: 1/4;
-  }
+/* Darker background-color on hover */
 
-  .grid-container {
-    display: grid;
-    grid-template-columns: auto auto auto auto;
-
-  }
-
-  /* Darker background-color on hover */
 ul li:hover {
     background: #ddd;
-  }
-  
-  /* When clicked on, add a background color and strike out text */
-  ul li.checked {
+}
+
+#cafes li:hover {
+    background: #ddd;
+}
+
+
+/* When clicked on, add a background color and strike out text */
+
+ul li.checked {
     background: #888;
     color: #fff;
     text-decoration: line-through;
-  }
+}
 
-  .close:hover {
+.close:hover {
     background-color: #f44336;
     color: white;
-  }
+}
 
-  .close {
+.close {
     cursor: pointer;
     /* position: absolute; */
     top: 50%;
     right: 0%;
     padding: 5px 10px;
     /* transform: translate(0%, -50%); */
-  }
-  
-  /* Style the list (remove margins and bullets, etc) */
+}
+
+
+/* Style the list (remove margins and bullets, etc) */
+
 ul {
     list-style-type: none;
     /* padding: 0; */
     /* margin: 0; */
-  }
+}
 
-  .arrow {
+.arrow {
     border: solid black;
     border-width: 0 3px 3px 0;
     display: inline-block;
@@ -132,8 +114,8 @@ ul {
 }
 
 .arrow:hover {
-  background-color: #f44336;
-  color: white;
+    background-color: #f44336;
+    color: white;
 }
 
 .right {
