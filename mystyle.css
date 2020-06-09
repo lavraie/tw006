@@ -136,6 +136,11 @@ ul {
     padding: 3px;
 }
 
+.arrow:hover {
+  background-color: #f44336;
+  color: white;
+}
+
 .right {
     transform: rotate(-45deg);
     -webkit-transform: rotate(-45deg);

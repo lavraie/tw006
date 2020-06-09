@@ -131,45 +131,49 @@ function myFunction() {
                     assetLayer = L.layerGroup(mark).addTo(mymap);
                     assetLayer.color = '#e85141';
                 });
-                const listUl = document.getElementById('cafes');
-                listUl.addEventListener("click", (event) => {
-                    let li = event.target;
-                    let f = li.parentElement.id;
-                    li01 = listUl.childNodes[f];
-                    if (event.target.className === 'arrow up') {
-                        listUl.insertBefore(li01, li01.previousElementSibling);
-                        for (i = 0; i < listUl.children.length; i++) {
-                            listUl.children[i].children[0].id = i;
-                            listUl.children[i].children[1].id = i;
-                            listUl.children[i].children[2].id = i;
+                const listUl = document.getElementsByTagName("SPAN");
+                // const listUl1 = document.getElementById('cafes');
+                console.log(listUl);
+                console.log(listUl[0].children[0]);
+                for (i = 0; i < listUl.length; i++) {
+                    listUl[i].children.addEventListener("click", (event) => {
+                        let li = event.target;
+                        console.log(event.target);
+                        // console.log(li01);
+                        if (event.target.className === 'arrow up') {
+                            listUl[i].insertBefore(li01, li01.previousElementSibling);
+                            for (i = 0; i < listUl[i].children.length; i++) {
+                                listUl[i].children[i].children[0].id = i;
+                                listUl[i].children[i].children[1].id = i;
+                                listUl[i].children[i].children[2].id = i;
+                            }
                         }
-                        console.log(listUl);
-                    }
-                    if (event.target.className === 'arrow down') {
-                        listUl.insertBefore(li01.nextElementSibling, li01);
-                        for (i = 0; i < listUl.children.length; i++) {
-                            listUl.children[i].children[0].id = i;
-                            listUl.children[i].children[1].id = i;
-                            listUl.children[i].children[2].id = i;
+                        if (event.target.className === 'arrow down') {
+                            listUl[i].insertBefore(li01.nextElementSibling, li01);
+                            for (i = 0; i < listUl[i].children.length; i++) {
+                                listUl[i].children[i].children[0].id = i;
+                                listUl[i].children[i].children[1].id = i;
+                                listUl[i].children[i].children[2].id = i;
+                            }
                         }
-                    }
-                    if (event.target.className === 'arrow right') {
-                        document.getElementById("cafes02").appendChild(li01);
-                        for (i = 0; i < listUl.children.length; i++) {
-                            listUl.children[i].children[0].id = i;
-                            listUl.children[i].children[1].id = i;
-                            listUl.children[i].children[2].id = i;
+                        if (event.target.className === 'arrow right') {
+                            document.getElementById("cafes02").appendChild(li01);
+                            for (i = 0; i < listUl[i].children.length; i++) {
+                                listUl[i].children[i].children[0].id = i;
+                                listUl[i].children[i].children[1].id = i;
+                                listUl[i].children[i].children[2].id = i;
+                            }
                         }
-                    }
-                    if (event.target.className === 'close') {
-                        document.getElementById("cafes03").appendChild(li01);
-                        for (i = 0; i < listUl.children.length; i++) {
-                            listUl.children[i].children[0].id = i;
-                            listUl.children[i].children[1].id = i;
-                            listUl.children[i].children[2].id = i;
+                        if (event.target.className === 'close') {
+                            document.getElementById("cafes03").appendChild(li01);
+                            for (i = 0; i < listUl[i].children.length; i++) {
+                                listUl[i].children[i].children[0].id = i;
+                                listUl[i].children[i].children[1].id = i;
+                                listUl[i].children[i].children[2].id = i;
+                            }
                         }
-                    }
-                });
+                    });
+                }
             }
         )
         .catch(function (err) {
