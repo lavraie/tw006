@@ -22,11 +22,6 @@ async function promiseAll() {
             );
             data4 = [data2, data3]
             getData2(data4);
-            // data2.forEach(function (item) {
-            //     var option = document.createElement("option");
-            //     option.text = item.name.valueOf();
-            //     document.getElementById("countrySelect").add(option);
-            // });
         })
 }
 // do something with the data
