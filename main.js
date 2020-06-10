@@ -157,38 +157,36 @@ function myFunction() {
 }
 
 function myFunction1() {
+    let routes = [];
     let routesEl = document.getElementById("cafes02");
     let routesEl01 = [...routesEl.getElementsByTagName("LI")];
-    // let lat = routesEl01[0].children[0].textContent;
-    // let lon = routesEl01[0].children[1].textContent;
-    console.log(routesEl01);
-    console.log(routesEl01[0].children[0].textContent);
     for (i = 0; i < routesEl01.length; i++) {
         routes.push([routesEl01[i].children[0].textContent, routesEl01[i].children[1].textContent])
     }
-    console.log(routes);
     route01();
 
-    function route01(i) {
-        console.log(routes);
-        console.log(routes[0][0]);
-        var dir;
-        dir = MQ.routing.directions()
-            .on('success', function(data) {
-                var legs = data.route.legs,
-                    html = '',
-                    maneuvers,
-                    i;
-                if (legs && legs.length) {
-                    maneuvers = legs[0].maneuvers;
-                    for (i = 0; i < maneuvers.length; i++) {
-                        html += (i + 1) + '. ';
-                        html += maneuvers[i].narrative + '' + '</br>';
-                    }
-                    L.DomUtil.get('route-narrative').innerHTML = html;
-                }
-            });
+    function route01() {
+
+        // .on('success', function(data) {
+        //     // var legs = data.route.legs,
+        //     //     html = '',
+        //     //     maneuvers,
+        //     //     i;
+        //     // if (legs && legs.length) {
+        //     //     maneuvers = legs[0].maneuvers;
+        //     //     for (i = 0; i < maneuvers.length; i++) {
+        //     //         html += (i + 1) + '. ';
+        //     //         html += maneuvers[i].narrative + '' + '</br>';
+        //     //     }
+        //     //     L.DomUtil.get('route-narrative').innerHTML = html;
+        //     // }
+        // });
         for (i = 0; i < routes.length - 1; i++) {
+            console.log(routes);
+            console.log(routes.length);
+
+            var dir;
+            dir = MQ.routing.directions();
 
             dir.route({
                 locations: [{
@@ -199,13 +197,14 @@ function myFunction1() {
                     },
                     {
                         latLng: {
-                            lat: routes[i++][0],
-                            lng: routes[i++][1]
+                            lat: routes[i + 1][0],
+                            lng: routes[i + 1][1]
                         }
                     }
                 ]
             });
             mymap.addLayer(MQ.routing.routeLayer({
+                // [ribbonDisplay.color]: orange,
                 directions: dir,
                 fitBounds: false
             }));
