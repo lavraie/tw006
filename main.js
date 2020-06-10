@@ -72,11 +72,11 @@ function getData() {
     promiseAll();
 }
 getData();
-var routes = [];
-var mark = [];
-var cities = [];
-var assetLayer;
-var fn01;
+let routes = [];
+let mark = [];
+let cities = [];
+let assetLayer;
+let fn01;
 
 function myFunction() {
     var bounds = mymap.getBounds();
@@ -102,20 +102,8 @@ function myFunction() {
                             popupAnchor: [-3, -76],
                         });
 
-
-
-
-                        let marker;
-                        const node = document.createElement("LI");
-                        const textnode = document.createTextNode(pop01);
-                        node.appendChild(textnode);
-                        const node01 = node.cloneNode(true);
-                        node01.setAttribute("class", "cafes01");
                         const listUl = document.getElementsByTagName("LI");
                         var i = listUl.length;
-                        marker = new L.marker([item.lat, item.lon]);
-                        marker._id = i;
-
                         if (typeof item.tags.phone !== "undefined") {
                             var pop = "<dd>" + item.tags.name + "</dd>" + "<dd>" + item.tags.phone + "</dd>";
                             var pop01 = item.tags.name + " " + item.tags.phone;
@@ -123,7 +111,25 @@ function myFunction() {
                             var pop = `<dd>  ${item.tags.name} </dd><br><button name="btn02" id=${i} onclick = "fn01(id)" >Delete Marker </button>`;
                             // var pop = `<button type="button" onclick ="(function() { console.log("Hello World"); })()"> btn < /button>`;
                             var pop01 = item.tags.name;
+                            fn01 = function btn01(id) {
+                                mymap.removeLayer(mark[id]);
+                                document.getElementById("cafes03").appendChild(document.getElementById(id).parentElement);
+
+                                // console.log(document.getElementById(id).parentElement);
+                            };
                         }
+
+                        let marker;
+                        const node = document.createElement("LI");
+                        const textnode = document.createTextNode(pop01);
+                        node.appendChild(textnode);
+                        const node01 = node.cloneNode(true);
+                        node01.setAttribute("class", "cafes01");
+
+                        marker = new L.marker([item.lat, item.lon]);
+                        marker._id = i;
+
+
                         // let btn = document.createElement('button');
                         // btn.type = "button";
                         // btn.innerText = 'Delete Marker';
@@ -136,12 +142,7 @@ function myFunction() {
                             maxWidth: 'auto'
                         }));
 
-                        fn01 = function btn01(id) {
-                            console.log("btn clicked");
-                            console.log(id);
-                            mymap.removeLayer(mark[id]);
-                            // console.log(mark[btn.id]);
-                        };
+
 
                         // marker.bindPopup(btn, {
                         //     maxWidth: 'auto'
