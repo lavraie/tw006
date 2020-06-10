@@ -76,6 +76,7 @@ var routes = [];
 var mark = [];
 var cities = [];
 var assetLayer;
+var fn01;
 
 function myFunction() {
     var bounds = mymap.getBounds();
@@ -100,13 +101,10 @@ function myFunction() {
                             iconAnchor: [22, 94],
                             popupAnchor: [-3, -76],
                         });
-                        if (typeof item.tags.phone !== "undefined") {
-                            var pop = "<dd>" + item.tags.name + "</dd>" + "<dd>" + item.tags.phone + "</dd>";
-                            var pop01 = item.tags.name + " " + item.tags.phone;
-                        } else {
-                            var pop = "<dd>" + item.tags.name + "</dd>";
-                            var pop01 = item.tags.name;
-                        }
+
+
+
+
                         let marker;
                         const node = document.createElement("LI");
                         const textnode = document.createTextNode(pop01);
@@ -114,10 +112,41 @@ function myFunction() {
                         const node01 = node.cloneNode(true);
                         node01.setAttribute("class", "cafes01");
                         const listUl = document.getElementsByTagName("LI");
-                        i = listUl.length;
+                        var i = listUl.length;
                         marker = new L.marker([item.lat, item.lon]);
                         marker._id = i;
-                        mark.push(L.marker([item.lat, item.lon], { icon: myIcon }).bindPopup(pop));
+
+                        if (typeof item.tags.phone !== "undefined") {
+                            var pop = "<dd>" + item.tags.name + "</dd>" + "<dd>" + item.tags.phone + "</dd>";
+                            var pop01 = item.tags.name + " " + item.tags.phone;
+                        } else {
+                            var pop = `<dd>  ${item.tags.name} </dd><br><button name="btn02" id=${i} onclick = "fn01(id)" >Delete Marker </button>`;
+                            // var pop = `<button type="button" onclick ="(function() { console.log("Hello World"); })()"> btn < /button>`;
+                            var pop01 = item.tags.name;
+                        }
+                        // let btn = document.createElement('button');
+                        // btn.type = "button";
+                        // btn.innerText = 'Delete Marker';
+                        // btn.id = i;
+
+
+                        // console.log(btn);
+
+                        mark.push(L.marker([item.lat, item.lon], { icon: myIcon }).bindPopup(pop, {
+                            maxWidth: 'auto'
+                        }));
+
+                        fn01 = function btn01(id) {
+                            console.log("btn clicked");
+                            console.log(id);
+                            mymap.removeLayer(mark[id]);
+                            // console.log(mark[btn.id]);
+                        };
+
+                        // marker.bindPopup(btn, {
+                        //     maxWidth: 'auto'
+                        // }).openPopup();
+
                         const latEl = `<span id=${i} hidden>${item.lat}</span>`;
                         const lonEl = `<span id=${i} hidden>${item.lon}</span>`;
                         const domString = `<span id=${i}><i class="arrow up"></i></span>`;
@@ -143,9 +172,8 @@ function myFunction() {
                                 clName[found + 1].appendChild(li);
                             };
                             if (event.target.className === 'close') {
+                                // console.log(mark[marker._id]);
                                 mymap.removeLayer(mark[marker._id]);
-                                // console.log(li);
-                                // console.log(document.getElementById(marker._id).parentElement);
                                 document.getElementById("cafes03").appendChild(document.getElementById(marker._id).parentElement);
                                 document.getElementById(marker._id).parentElement.getElementsByClassName("close")[0].parentElement.hidden = true;
                                 document.getElementById(marker._id).parentElement.getElementsByClassName("arrow right")[0].parentElement.hidden = true;
