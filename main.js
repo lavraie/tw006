@@ -107,9 +107,7 @@ function myFunction() {
                             var pop = "<dd>" + item.tags.name + "</dd>";
                             var pop01 = item.tags.name;
                         }
-                        mark.push(L.marker([item.lat, item.lon], { icon: myIcon }).bindPopup(pop));
-                        // const loc = [item.tags.name, item.lat, item.lon];
-                        // routes.push(loc);
+                        let marker;
                         const node = document.createElement("LI");
                         const textnode = document.createTextNode(pop01);
                         node.appendChild(textnode);
@@ -117,6 +115,9 @@ function myFunction() {
                         node01.setAttribute("class", "cafes01");
                         const listUl = document.getElementsByTagName("LI");
                         i = listUl.length;
+                        marker = new L.marker([item.lat, item.lon]);
+                        marker._id = i;
+                        mark.push(L.marker([item.lat, item.lon], { icon: myIcon }).bindPopup(pop));
                         const latEl = `<span id=${i} hidden>${item.lat}</span>`;
                         const lonEl = `<span id=${i} hidden>${item.lon}</span>`;
                         const domString = `<span id=${i}><i class="arrow up"></i></span>`;
@@ -126,14 +127,12 @@ function myFunction() {
                         node01.innerHTML += " " + latEl + " " + lonEl + " " + domString + " " + i + " " + domStringdown + " " + close01 + " " + rightArrow;
                         node01.addEventListener("click", (event) => {
                             let li = event.target.parentElement.parentElement;
-                            console.log(li.parentElement.id);
                             const clName = document.getElementsByClassName("cafes23");
                             const clNameIds = [];
                             for (i = 0; i < clName.length; i++) {
                                 clNameIds.push(clName[i].id);
                             }
                             let found = clNameIds.indexOf(li.parentElement.id);
-                            console.log(found);
                             if (event.target.className === 'arrow up') {
                                 li.parentElement.insertBefore(li, li.previousElementSibling);
                             };
@@ -143,11 +142,19 @@ function myFunction() {
                             if (event.target.className === 'arrow right') {
                                 clName[found + 1].appendChild(li);
                             };
+                            if (event.target.className === 'close') {
+                                mymap.removeLayer(mark[marker._id]);
+                                // console.log(li);
+                                // console.log(document.getElementById(marker._id).parentElement);
+                                document.getElementById("cafes03").appendChild(document.getElementById(marker._id).parentElement);
+                                document.getElementById(marker._id).parentElement.getElementsByClassName("close")[0].parentElement.hidden = true;
+                                document.getElementById(marker._id).parentElement.getElementsByClassName("arrow right")[0].parentElement.hidden = true;
+                            };
                         });
                         document.getElementById("cafes").appendChild(node01);
                     }
                     assetLayer = L.layerGroup(mark).addTo(mymap);
-                    assetLayer.color = '#e85141';
+                    // assetLayer.color = '#e85141';
                 });
             }
         )
@@ -166,7 +173,6 @@ function myFunction1() {
     route01();
 
     function route01() {
-
         // .on('success', function(data) {
         //     // var legs = data.route.legs,
         //     //     html = '',
@@ -184,10 +190,8 @@ function myFunction1() {
         for (i = 0; i < routes.length - 1; i++) {
             console.log(routes);
             console.log(routes.length);
-
             var dir;
             dir = MQ.routing.directions();
-
             dir.route({
                 locations: [{
                         latLng: {
@@ -201,10 +205,16 @@ function myFunction1() {
                             lng: routes[i + 1][1]
                         }
                     }
-                ]
+                ],
+                options: {
+                    // routeType: 'bus'
+                    routeType: 'pedestrian'
+                }
             });
+            let items = ["red", "yellow", "blue", "black", "lightblue"];
+            let k = items[Math.floor(Math.random() * items.length)];
             mymap.addLayer(MQ.routing.routeLayer({
-                // [ribbonDisplay.color]: orange,
+                ribbonOptions: { draggable: true, ribbonDisplay: { color: k, opacity: 0.3 } },
                 directions: dir,
                 fitBounds: false
             }));
