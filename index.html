@@ -14,17 +14,16 @@
 
 <body>
     <script src="main.js"></script>
-    <label class="countrySelect" for="countrySelect">Choose a country:</label>
-    <select class="countrySelect" id="countrySelect" onChange="countrySelected()"></select>
-    <label for="citySelect">Choose a city:</label>
-    <select id="citySelect" onChange="citySelected()"></select>
-    <button onclick="myFunction()">Click me</button>
-    <button onclick="myFunction1()">Click me</button>
+
     <div id="wrap">
-
-
-        <br>
-        <br>
+        <div id="grid01">
+            <label class="countrySelect" for="countrySelect">Choose a country:</label>
+            <select class="countrySelect" id="countrySelect" onChange="countrySelected()"></select>
+            <label for="citySelect">Choose a city:</label>
+            <select id="citySelect" onChange="citySelected()"></select>
+            <button onclick="myFunction()">Click me</button>
+            <button onclick="myFunction1()">Click me</button>
+        </div>
         <div id="mapid"></div>
         <script>
             var mymap = L.map('mapid', {
