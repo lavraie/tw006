@@ -58,6 +58,8 @@ grid-template-rows: 100px;
     grid-row: 2/3;
 }
 
+#btn-cafes {}
+
 
 /* .wrap {
 border: 5px outset red;
