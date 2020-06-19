@@ -48,8 +48,10 @@
     background-color: lime;
 }
 
-.cafes {
-    padding: 10px;
+.cafes,
+.cafes23 {
+    text-align: center;
+    padding: 2px;
     font-size: 0.8rem;
     /* grid-area: 2 / 1 / 4 / 1; */
 }
