@@ -1,97 +1,87 @@
 #countrySelect {
-    width: 150px;
+    margin: 15px;
+    width: 100px;
 }
 
 #countrySelect option {
-    width: 150px;
+    margin: 15px;
+    /* width: 150px; */
 }
 
 #citySelect {
-    width: 150px;
+    margin: 15px;
+    width: 100px;
 }
 
 #cityySelect option {
-    width: 150px;
-}
-
-#mapid {
-    height: 580px;
-}
-
-
-/* .wrap {
-display: grid;
-height: 100px;
-grid-template-columns: repeat(3, 1fr);
-grid-template-rows: 100px;
-} */
-
-#wrap {
-    display: grid;
-    text-align: center;
-    background-color: aquamarine;
-    width: 1fr;
-    border: 5px solid green;
-    padding: 50px;
-    margin: 20px;
-}
-
-.wrap:nth-child(odd) {
-    background-color: rgb(58, 201, 58);
-    text-align: right;
-}
-
-#route-narrative02 {
-    background-color: lime;
-    grid-row: 3/3;
-    grid-column: 4/4;
-}
-
-#mapid {
-    grid-row: 2/5;
-    grid-column: 2/4
+    margin: 15px;
+    /* width: 150px; */
 }
 
 #grid01 {
     display: grid;
-    /* grid-column: 1/1; */
-    grid-row: 2/3;
+    text-align: center;
+    background-color: rgb(163, 228, 206);
+    /* width: 1fr; */
+    border: 5px solid green;
+    padding: 5px;
+    margin: 5px;
+    grid-template-columns: 150px 1fr 1fr 1fr;
+    grid-template-rows: 150px 250px 250px 250px;
+}
+
+.mapid01 {
+    grid-area: 2 / 1 / 4 / 4;
 }
 
 .btn-cafes {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
-    grid-gap: 5mm;
+    background-color: rgb(139, 196, 137);
+    grid-area: 1 / 4 / 1 / 4;
+    /* grid-area: left; */
 }
 
-.btn-cafes p {
-    border: 1px solid #111;
-    padding: 20px;
-    margin: 0
+.button01:hover {
+    background-position: right center;
 }
 
-button {
-    height: 60px;
-    width: 200px;
-    background-color: #fff;
+#route-narrative02 {
+    background-color: lime;
+}
+
+.cafes {
+    padding: 10px;
+    font-size: 0.8rem;
+    /* grid-area: 2 / 1 / 4 / 1; */
+}
+
+#button01-01,
+#button01-03,
+#button01-05 {
+    background-image: linear-gradient(to right, #26b482 12%, #93F9B9 30%);
+}
+
+#button01-02,
+#button01-04,
+#button01-06 {
+    background-image: linear-gradient(to right, #bd1d1d 12%, #ff7689 30%);
+}
+
+.button01 {
+    height: 25px;
+    width: 120px;
+    /* background-color: #4CAF50; */
     border-radius: 3px;
     border: 1px solid #c4c4c4;
-    background-color: transparent;
-    font-size: 1.4rem;
+    /* background-color: transparent; */
+    font-size: 1rem;
     color: #333;
-    background-image: linear-gradient(to bottom, transparent, transparent 50%, rgba(0, 0, 0, .04));
-    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .05), inset 0 1px 0 0 rgba(255, 255, 255, .45), inset 0 -1px 0 0 rgba(255, 255, 255, .15), 0 1px 0 0 rgba(255, 255, 255, .15);
-    text-shadow: 0 1px rgba(255, 255, 255, .4);
-    text-align: right;
+    /* background-image: linear-gradient(to bottom, transparent, transparent 50%, rgba(0, 0, 0, .04)); */
+    /* box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .05), inset 0 1px 0 0 rgba(255, 255, 255, .45), inset 0 -1px 0 0 rgba(255, 255, 255, .15), 0 1px 0 0 rgba(255, 255, 255, .15); */
+    /* text-shadow: 0 1px rgba(255, 255, 255, .4); */
+    text-align: left;
+    /* margin: 3px; */
+    /* grid-area: menu; */
 }
-
-
-/* .wrap {
-border: 5px outset red;
-background-color: lightblue;
-text-align: center;
-} */
 
 
 /* Darker background-color on hover */
@@ -103,9 +93,6 @@ ul li:hover {
 #cafes li:hover {
     background: #ddd;
 }
-
-
-/* When clicked on, add a background color and strike out text */
 
 ul li.checked {
     background: #888;

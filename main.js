@@ -78,9 +78,10 @@ let cities = [];
 let assetLayer;
 let fn01;
 
-function myFunction() {
+function myFunction(amenity) {
+    console.log(amenity);
     var bounds = mymap.getBounds();
-    let url = `https://www.overpass-api.de/api/interpreter?data=[out:json];node[amenity=cafe](${bounds._southWest.lat},${bounds._southWest.lng},${bounds._northEast.lat},${bounds._northEast.lng});out meta;`;
+    let url = `https://www.overpass-api.de/api/interpreter?data=[out:json];node[amenity=${amenity}](${bounds._southWest.lat},${bounds._southWest.lng},${bounds._northEast.lat},${bounds._northEast.lng});out meta;`;
     fetch(url)
         .then(
             function(response) {
@@ -203,18 +204,18 @@ function myFunction1() {
 
     function route01() {
         // .on('success', function(data) {
-        //     // var legs = data.route.legs,
-        //     //     html = '',
-        //     //     maneuvers,
-        //     //     i;
-        //     // if (legs && legs.length) {
-        //     //     maneuvers = legs[0].maneuvers;
-        //     //     for (i = 0; i < maneuvers.length; i++) {
-        //     //         html += (i + 1) + '. ';
-        //     //         html += maneuvers[i].narrative + '' + '</br>';
-        //     //     }
-        //     //     L.DomUtil.get('route-narrative').innerHTML = html;
-        //     // }
+        //     var legs = data.route.legs,
+        //         html = '',
+        //         maneuvers,
+        //         i;
+        //     if (legs && legs.length) {
+        //         maneuvers = legs[0].maneuvers;
+        //         for (i = 0; i < maneuvers.length; i++) {
+        //             html += (i + 1) + '. ';
+        //             html += maneuvers[i].narrative + '' + '</br>';
+        //         }
+        //         L.DomUtil.get('route-narrative').innerHTML = html;
+        //     }
         // });
         for (i = 0; i < routes.length - 1; i++) {
             console.log(routes);
