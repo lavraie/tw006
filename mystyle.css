@@ -27,11 +27,11 @@
     padding: 5px;
     margin: 5px;
     grid-template-columns: 150px 1fr 1fr 1fr;
-    grid-template-rows: 150px 250px 250px 250px;
+    grid-template-rows: 150px 250px 250px 150px;
 }
 
 .mapid01 {
-    grid-area: 2 / 1 / 4 / 4;
+    grid-area: 1 / 1 / 5 / 4;
 }
 
 .btn-cafes {
