@@ -104,7 +104,7 @@ function myFunction(amenity) {
                             iconU = 'https://img.icons8.com/clouds/100/000000/restaurant.png';
                         }
                         if (amenity == "cinema") {
-                            iconU = 'https://img.icons8.com/clouds/100/000000/ticket.png';
+                            iconU = 'https://img.icons8.com/clouds/100/000000/starred-ticket.png';
                         }
                         var myIcon = L.icon({
                             iconUrl: iconU,
