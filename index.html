@@ -14,42 +14,31 @@
 
 <body>
     <script src="main.js"></script>
-
     <div id="grid01">
-
         <div class="btn-cafes">
             <div>
                 <label class="countrySelect" for="countrySelect">Choose a country:</label>
                 <label for="citySelect">Choose a city:</label>
-
             </div>
             <div>
                 <select class="countrySelect" id="countrySelect" onChange="countrySelected()"></select>
-
                 <select id="citySelect" onChange="citySelected()"></select>
-
             </div>
             <div>
-
-
                 <button class="button01" id="button01-01" value="cafe" onclick="myFunction(this.value)">V &emsp;cafes</button>
                 <button class="button01" id="button01-02" onclick="myFunction1()">X &emsp;cafes</button>
                 <button class="button01" id="button01-03" value="restaurant" onclick="myFunction(this.value)">V  restaurants</button>
                 <button class="button01" id="button01-04" onclick="myFunction1()">X  restaurants</button>
                 <button class="button01" id="button01-05" value="cinema" onclick="myFunction(this.value)">V &emsp;cinemas</button>
                 <button class="button01" id="button01-06" onclick="myFunction1()">X &emsp;cinemas</button>
-
             </div>
             <div class="cafes">
-
                 <ol class="cafes23" id="cafes" style="background-color:rgb(211, 209, 113)">cafes</ol>
                 <ul class="cafes23" id="cafes02" style="background-color:blueviolet">restaurants</ul>
                 <ul class="cafes23" id="cafes03" style="background-color:red">cinemas</ul>
                 <div id="route-narrative" style="background-color:aqua">route</div>
-
             </div>
         </div>
-
         <div class="mapid01" id="mapid">
             <script>
                 var mymap = L.map('mapid', {
@@ -67,11 +56,10 @@
                     zoomOffset: -1
                 }).addTo(mymap);
             </script>
-
         </div>
     </div>
 
-
+    <!-- </div> -->
 </body>
 
 </html>

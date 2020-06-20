@@ -96,6 +96,8 @@ function myFunction(amenity) {
                     el.forEach(sortFunc);
 
                     function sortFunc(item) {
+                        // console.log(amenity);
+
                         var myIcon = L.icon({
                             iconUrl: 'https://img.icons8.com/clouds/100/000000/bar.png',
                             iconSize: [50, 50],
