@@ -199,26 +199,49 @@ function myFunction1() {
     }
     route01();
 
+    // function route01() {
+    //     // .on('success', function(data) {
+    //     let rou01 = function(data) {
+    //         var legs = data.route.legs,
+    //             html = '',
+    //             maneuvers,
+    //             i;
+    //         if (legs && legs.length) {
+    //             maneuvers = legs[0].maneuvers;
+    //             for (i = 0; i < maneuvers.length; i++) {
+    //                 html += (i + 1) + '. ';
+    //                 html += maneuvers[i].narrative + '' + '</br>';
+    //             }
+    //             L.DomUtil.get('route-narrative').innerHTML = html;
+    //         }
+    //     };
+    //     rou01();
     function route01() {
-        // .on('success', function(data) {
-        //     var legs = data.route.legs,
-        //         html = '',
-        //         maneuvers,
-        //         i;
-        //     if (legs && legs.length) {
-        //         maneuvers = legs[0].maneuvers;
-        //         for (i = 0; i < maneuvers.length; i++) {
-        //             html += (i + 1) + '. ';
-        //             html += maneuvers[i].narrative + '' + '</br>';
-        //         }
-        //         L.DomUtil.get('route-narrative').innerHTML = html;
-        //     }
-        // });
+        console.log("route01");
+        var dir;
+        dir = MQ.routing.directions()
+            .on('success', function(data) {
+                var legs = data.route.legs,
+                    html = '',
+                    maneuvers,
+                    i;
+
+                if (legs && legs.length) {
+                    maneuvers = legs[0].maneuvers;
+
+                    for (i = 0; i < maneuvers.length; i++) {
+                        html += (i + 1) + '. ';
+                        html += maneuvers[i].narrative + '<br/>';
+                    }
+
+                    L.DomUtil.get('route-narrative').innerHTML = html;
+                }
+            });
         for (i = 0; i < routes.length - 1; i++) {
             console.log(routes);
             console.log(routes.length);
             var dir;
-            dir = MQ.routing.directions();
+            // dir = MQ.routing.directions();
             dir.route({
                 locations: [{
                         latLng: {
