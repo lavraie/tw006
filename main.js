@@ -96,15 +96,22 @@ function myFunction(amenity) {
                     el.forEach(sortFunc);
 
                     function sortFunc(item) {
-                        // console.log(amenity);
-
+                        let iconU;
+                        if (amenity == "cafe") {
+                            iconU = 'https://img.icons8.com/clouds/100/000000/cafe.png';
+                        }
+                        if (amenity == "restaurant") {
+                            iconU = 'https://img.icons8.com/clouds/100/000000/restaurant.png';
+                        }
+                        if (amenity == "cinema") {
+                            iconU = 'https://img.icons8.com/clouds/100/000000/ticket.png';
+                        }
                         var myIcon = L.icon({
-                            iconUrl: 'https://img.icons8.com/clouds/100/000000/bar.png',
+                            iconUrl: iconU,
                             iconSize: [50, 50],
                             iconAnchor: [22, 94],
                             popupAnchor: [-3, -76],
                         });
-
                         const listUl = document.getElementsByTagName("LI");
                         var i = listUl.length;
                         if (typeof item.tags.phone !== "undefined") {
@@ -117,40 +124,28 @@ function myFunction(amenity) {
                             fn01 = function btn01(id) {
                                 mymap.removeLayer(mark[id]);
                                 document.getElementById("cafes03").appendChild(document.getElementById(id).parentElement);
-
                                 // console.log(document.getElementById(id).parentElement);
                             };
                         }
-
                         let marker;
                         const node = document.createElement("LI");
                         const textnode = document.createTextNode(pop01);
                         node.appendChild(textnode);
                         const node01 = node.cloneNode(true);
                         node01.setAttribute("class", "cafes01");
-
                         marker = new L.marker([item.lat, item.lon]);
                         marker._id = i;
-
-
                         // let btn = document.createElement('button');
                         // btn.type = "button";
                         // btn.innerText = 'Delete Marker';
                         // btn.id = i;
-
-
                         // console.log(btn);
-
                         mark.push(L.marker([item.lat, item.lon], { icon: myIcon }).bindPopup(pop, {
                             maxWidth: 'auto'
                         }));
-
-
-
                         // marker.bindPopup(btn, {
                         //     maxWidth: 'auto'
                         // }).openPopup();
-
                         const latEl = `<span id=${i} hidden>${item.lat}</span>`;
                         const lonEl = `<span id=${i} hidden>${item.lon}</span>`;
                         const domString = `<span id=${i}><i class="arrow up"></i></span>`;
