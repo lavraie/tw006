@@ -218,6 +218,8 @@ function myFunction1() {
     //     rou01();
     function route01() {
         console.log("route01");
+        L.DomUtil.get('route-narrative').innerHTML = '';
+
         var dir;
         dir = MQ.routing.directions()
             .on('success', function(data) {
