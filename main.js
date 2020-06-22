@@ -115,19 +115,13 @@ function myFunction(amenity) {
                         });
                         const listUl = document.getElementsByTagName("LI");
                         var i = listUl.length;
-                        if (typeof item.tags.phone !== "undefined") {
-                            var pop = "<dd>" + item.tags.name + "</dd>" + "<dd>" + item.tags.phone + "</dd>";
-                            var pop01 = item.tags.name + " " + item.tags.phone;
-                        } else {
-                            var pop = `<dd>  ${item.tags.name} </dd><br><button name="btn02" id=${i} onclick = "fn01(id)" >Delete Marker </button>`;
-                            // var pop = `<button type="button" onclick ="(function() { console.log("Hello World"); })()"> btn < /button>`;
-                            var pop01 = item.tags.name;
-                            fn01 = function btn01(id) {
-                                mymap.removeLayer(mark[id]);
-                                document.getElementById("cafes03").appendChild(document.getElementById(id).parentElement);
-                                // console.log(document.getElementById(id).parentElement);
-                            };
-                        }
+
+                        var pop = `<dd>${item.tags.name}</dd><br><button name="btn02" id=${i} onclick = "fn01(id)" >Delete Marker </button>`;
+                        var pop01 = item.tags.name;
+                        fn01 = function btn01(id) {
+                            mymap.removeLayer(mark[id]);
+                            // document.getElementById("cafes03").appendChild(document.getElementById(id).parentElement);
+                        };
                         let marker;
                         const node = document.createElement("LI");
                         const textnode = document.createTextNode(pop01);
@@ -136,20 +130,12 @@ function myFunction(amenity) {
                         node01.setAttribute("class", "cafes01");
                         marker = new L.marker([item.lat, item.lon]);
                         marker._id = i;
-                        // let btn = document.createElement('button');
-                        // btn.type = "button";
-                        // btn.innerText = 'Delete Marker';
-                        // btn.id = i;
-                        // console.log(btn);
                         mark.push(L.marker([item.lat, item.lon], {
                             icon: myIcon,
                             title: amenity
                         }).bindPopup(pop, {
                             maxWidth: 'auto'
                         }));
-                        // marker.bindPopup(btn, {
-                        //     maxWidth: 'auto'
-                        // }).openPopup();
                         const latEl = `<span id=${i} hidden>${item.lat}</span>`;
                         const lonEl = `<span id=${i} hidden>${item.lon}</span>`;
                         const domString = `<span id=${i}><i class="arrow up"></i></span>`;
@@ -175,24 +161,21 @@ function myFunction(amenity) {
                                 clName[found + 1].appendChild(li);
                             };
                             if (event.target.className === 'close') {
-                                // console.log(mark[marker._id]);
                                 mymap.removeLayer(mark[marker._id]);
-                                document.getElementById("cafes03").appendChild(document.getElementById(marker._id).parentElement);
-                                document.getElementById(marker._id).parentElement.getElementsByClassName("close")[0].parentElement.hidden = true;
-                                document.getElementById(marker._id).parentElement.getElementsByClassName("arrow right")[0].parentElement.hidden = true;
+                                // document.getElementById("cafes03").appendChild(document.getElementById(marker._id).parentElement);
+                                // document.getElementById(marker._id).parentElement.getElementsByClassName("close")[0].parentElement.hidden = true;
+                                // document.getElementById(marker._id).parentElement.getElementsByClassName("arrow right")[0].parentElement.hidden = true;
                             };
                         });
                         document.getElementById("cafes").appendChild(node01);
                     }
                     assetLayer = L.layerGroup(mark).addTo(mymap);
-                    // assetLayer.color = '#e85141';
                 });
             }
         )
         .catch(function(err) {
             console.log('Fetch Error :-S', err);
         });
-    // amenity = {};
 }
 
 function myFunction2(valueToClear) {
@@ -239,7 +222,7 @@ function myFunction1() {
                     html += (i + 1) + '. ';
                     html += maneuvers[i].narrative + '<br/>';
                 }
-                L.DomUtil.get('cafes03').innerHTML = 'Distance: ' + data.route.legs[0].distance + ' km';
+                L.DomUtil.get('cafes03').innerHTML += ' ' + data.route.legs[0].distance + ' km';
 
                 L.DomUtil.get('route-narrative').innerHTML = html;
             }
