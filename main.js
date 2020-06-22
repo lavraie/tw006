@@ -80,6 +80,7 @@ let fn01;
 
 function myFunction(amenity) {
     console.log(amenity);
+    // amenity = amenity;
     var bounds = mymap.getBounds();
     let url = `https://www.overpass-api.de/api/interpreter?data=[out:json];node[amenity=${amenity}](${bounds._southWest.lat},${bounds._southWest.lng},${bounds._northEast.lat},${bounds._northEast.lng});out meta;`;
     fetch(url)
@@ -140,7 +141,10 @@ function myFunction(amenity) {
                         // btn.innerText = 'Delete Marker';
                         // btn.id = i;
                         // console.log(btn);
-                        mark.push(L.marker([item.lat, item.lon], { icon: myIcon }).bindPopup(pop, {
+                        mark.push(L.marker([item.lat, item.lon], {
+                            icon: myIcon,
+                            title: amenity
+                        }).bindPopup(pop, {
                             maxWidth: 'auto'
                         }));
                         // marker.bindPopup(btn, {
@@ -188,6 +192,24 @@ function myFunction(amenity) {
         .catch(function(err) {
             console.log('Fetch Error :-S', err);
         });
+    // amenity = {};
+}
+
+function myFunction2(valueToClear) {
+    const result = mark.filter(e => e.options.title == valueToClear);
+    result.forEach(myFunction);
+
+    function myFunction(item, index) {
+        mymap.removeLayer(result[index]);
+        const indexOfMark = mark.indexOf(item);
+        console.log(indexOfMark);
+        mark.splice(indexOfMark, 1);
+
+
+    }
+    console.log("mark");
+    console.log(mark);
+
 }
 
 function myFunction1() {

@@ -58,7 +58,8 @@
 
 #button01-01,
 #button01-03,
-#button01-05 {
+#button01-05,
+#button01-07 {
     background-image: linear-gradient(to right, #26b482 12%, #93F9B9 30%);
 }
 
