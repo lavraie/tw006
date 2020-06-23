@@ -121,14 +121,11 @@ function myFunction(amenity) {
                         });
                         const listUl = document.getElementsByTagName("LI");
                         var i = listUl.length;
-
                         let pop02;
                         fn02 = function btn02(id39, id40, id41, id42) {
                             document.getElementById("cafes02").insertAdjacentHTML('beforeend', `<div id="two">${id39} ${id40} </div><span id="lat" hidden>${id41}</span></div><span id="lon" hidden>${id42}</span>`);
                             console.log(document.getElementById("cafes02"));
                             // <span id=${i}><i class="arrow up"></i></span>
-
-
                         };
                         let marker;
                         // const node = document.createElement("LI");
@@ -149,7 +146,6 @@ function myFunction(amenity) {
                             if (targetInnerHTML.innerHTML == "") {
                                 targetInnerHTML.innerHTML = html01;
                             }
-
                         };
                         mark.push(L.marker([item.lat, item.lon], {
                             icon: myIcon,
@@ -158,7 +154,6 @@ function myFunction(amenity) {
                         }).bindPopup(pop02, {
                             maxWidth: 'auto'
                         }).addEventListener('click', _markerOnClick));
-
                         const latEl = `<span id=${i} hidden>${item.lat}</span>`;
                         const lonEl = `<span id=${i} hidden>${item.lon}</span>`;
                         const domString = `<span id=${i}><i class="arrow up"></i></span>`;
@@ -187,8 +182,6 @@ function myFunction(amenity) {
                         //         console.log("mark[marker._id]");
                         //         console.log(mark[marker._id]);
                         //         mymap.removeLayer(mark[marker._id]);
-
-
                         ;
                     }
                     assetLayer = L.layerGroup(mark).addTo(mymap);
@@ -222,9 +215,7 @@ function myFunction11() {
 // let i = 0;
 // let n = 0;
 // let dir;
-
 function myFunction1() {
-
     let routes = [];
     let routesEl = document.getElementById("cafes02");
     let routesEl01 = [...routesEl.getElementsByTagName("SPAN")];
@@ -235,14 +226,9 @@ function myFunction1() {
     for (n = 0; n <= routesEl01.length - 1; n += 2) {
         // routes.push([routesEl01[n].innerText, routesEl01[n + 1].innerText]);
         routes.push({ latLng: { lat: routesEl01[n].innerText, lng: routesEl01[n + 1].innerText } });
-        // console.log("routes");
-        // console.log(routes);
     }
     console.log("routes");
     console.log(routes);
-    // console.log(routes.length);
-
-
     L.DomUtil.get('route-narrative').innerHTML = '';
     dir = MQ.routing.directions()
         .on('success', function(data) {
@@ -250,26 +236,13 @@ function myFunction1() {
                 maneuvers01 = [],
                 html = '',
                 i;
-
             console.log("onsuccess");
             console.log(legs);
-
-            //     html = '',
-            //     i;
-            // console.log("legs");
-            // console.log(legs);
-            // console.log("legs.length");
-            // console.log(legs.length);
-            // let k = legs.length;
-
             if (legs && legs.length) {
                 for (i = 0; i < legs.length; i++) {
                     legs[i].maneuvers.forEach(element => maneuvers01.push(element));
                     console.log("maneuvers01");
                     console.log(maneuvers01);
-                    //         // maneuvers.push(legs[i].maneuvers);
-
-
                 }
             }
             let dist = 0;
@@ -279,23 +252,13 @@ function myFunction1() {
                 html += maneuvers01[i].distance * 1000 + 'm';
                 html += '<br>';
                 dist += maneuvers01[i].distance * 1000;
-
-
             }
             console.log(dist);
-
             L.DomUtil.get('cafes03').innerHTML += ' ' + dist + 'm';
             L.DomUtil.get('route-narrative').insertAdjacentHTML('beforeend', html);
-            // }
-            // }
-            // 
         });
-
-
-
     dir.route({
         locations: routes,
-
         options: {
             // routeType: 'bus'
             routeType: 'pedestrian'
@@ -303,24 +266,9 @@ function myFunction1() {
     });
     let items = ["red", "yellow", "blue", "black", "darkblue", "brown", "violet"];
     let k = items[Math.floor(Math.random() * items.length)];
-
     mymap.addLayer(MQ.routing.routeLayer({
         ribbonOptions: { draggable: true, ribbonDisplay: { color: k, opacity: 0.3 } },
-
         directions: dir,
         fitBounds: false
     }));
-
-    // let items = ["red", "yellow", "blue", "black", "darkblue", "brown", "violet"];
-    // let k = items[Math.floor(Math.random() * items.length)];
-
-    // mymap.addLayer(MQ.routing.routeLayer({
-    //     ribbonOptions: { draggable: true, ribbonDisplay: { color: 'red', opacity: 0.3 } },
-    //     directions: dir,
-    //     fitBounds: false
-    // }));
-
-
-
-
 }
