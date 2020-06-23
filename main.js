@@ -272,22 +272,19 @@ function myFunction1() {
 
                 }
             }
-            //     console.log("k");
-            //     console.log(k);
-            //     // console.log("legs.length");
-            // console.log(legs.length);
-            // console.log("legs[i]");
-            // console.log(legs[i]);
-            // maneuvers = legs[i].maneuvers;
-            // console.log("maneuvers");
-            // console.log(maneuvers);
-
+            let dist = 0;
             for (i = 0; i < maneuvers01.length; i++) {
                 html += (i + 1) + '. ';
-                html += maneuvers01[i].narrative + '';
+                html += maneuvers01[i].narrative + ' ';
+                html += maneuvers01[i].distance * 1000 + 'm';
                 html += '<br>';
+                dist += maneuvers01[i].distance * 1000;
+
+
             }
-            // L.DomUtil.get('cafes03').innerHTML += ' ' + data.route.legs[0].distance + ' km';
+            console.log(dist);
+
+            L.DomUtil.get('cafes03').innerHTML += ' ' + dist + 'm';
             L.DomUtil.get('route-narrative').insertAdjacentHTML('beforeend', html);
             // }
             // }
