@@ -219,12 +219,11 @@ function myFunction11() {
     console.log(i);
     i += 1;
 }
-let i = 0;
-let n = 0;
-let dir;
+// let i = 0;
+// let n = 0;
+// let dir;
 
 function myFunction1() {
-    console.log(i);
 
     let routes = [];
     let routesEl = document.getElementById("cafes02");
@@ -234,89 +233,108 @@ function myFunction1() {
     // console.log("routesEl01");
     // console.log(routesEl01);
     for (n = 0; n <= routesEl01.length - 1; n += 2) {
-        routes.push([routesEl01[n].innerText, routesEl01[n + 1].innerText]);
+        // routes.push([routesEl01[n].innerText, routesEl01[n + 1].innerText]);
+        routes.push({ latLng: { lat: routesEl01[n].innerText, lng: routesEl01[n + 1].innerText } });
         // console.log("routes");
         // console.log(routes);
     }
-    // console.log("routes");
-    // console.log(routes);
+    console.log("routes");
+    console.log(routes);
     // console.log(routes.length);
 
 
     L.DomUtil.get('route-narrative').innerHTML = '';
     dir = MQ.routing.directions()
         .on('success', function(data) {
-            let k = 0;
-            var legs = data.route.legs,
+            let legs = data.route.legs,
+                maneuvers01 = [],
                 html = '',
-                maneuvers,
                 i;
 
-            if (legs && legs.length) {
-                console.log("legs.length");
-                console.log(legs.length);
-                console.log(legs);
-                maneuvers = legs[k].maneuvers;
+            console.log("onsuccess");
+            console.log(legs);
 
-                for (i = 0; i < maneuvers.length; i++) {
-                    html += (i + 1) + '. ';
-                    html += maneuvers[i].narrative + '';
-                    html += '<br>';
+            //     html = '',
+            //     i;
+            // console.log("legs");
+            // console.log(legs);
+            // console.log("legs.length");
+            // console.log(legs.length);
+            // let k = legs.length;
+
+            if (legs && legs.length) {
+                for (i = 0; i < legs.length; i++) {
+                    legs[i].maneuvers.forEach(element => maneuvers01.push(element));
+                    console.log("maneuvers01");
+                    console.log(maneuvers01);
+                    //         // maneuvers.push(legs[i].maneuvers);
+
+
                 }
-                L.DomUtil.get('cafes03').innerHTML += ' ' + data.route.legs[0].distance + ' km';
-                L.DomUtil.get('route-narrative').insertAdjacentHTML('beforeend', html);
             }
-            k += 1;
+            //     console.log("k");
+            //     console.log(k);
+            //     // console.log("legs.length");
+            // console.log(legs.length);
+            // console.log("legs[i]");
+            // console.log(legs[i]);
+            // maneuvers = legs[i].maneuvers;
+            // console.log("maneuvers");
+            // console.log(maneuvers);
+
+            for (i = 0; i < maneuvers01.length; i++) {
+                html += (i + 1) + '. ';
+                html += maneuvers01[i].narrative + '';
+                html += '<br>';
+            }
+            // L.DomUtil.get('cafes03').innerHTML += ' ' + data.route.legs[0].distance + ' km';
+            L.DomUtil.get('route-narrative').insertAdjacentHTML('beforeend', html);
+            // }
+            // }
         });
-    // console.log("iiiiiiii");
-    // console.log(i);
-    // console.log(routes[i][0]);
-    // console.log(routes[i + 1][0]);
-    // console.log(routes[i][1]);
-    // console.log(routes[i + 1][1]);
+
+
+    // locations01 = [];
+    // for (n = 0; n < routes.length; n += 2) {
+    //     locations01.push({
+    //         latLng: {
+    //             lat: routes[n][0],
+    //             lng: routes[n][1]
+    //         }
+    //     }, {
+    //         latLng: {
+    //             lat: routes[n + 1][0],
+    //             lng: routes[n + 1][1]
+    //         }
+    //     });
+
+    // };
+    // console.log("locations01");
+    // console.log(locations01);
     dir.route({
-        locations: [{
-                latLng: {
-                    lat: routes[i][0],
-                    lng: routes[i][1]
-                }
-            },
-            {
-                latLng: {
-                    lat: routes[i + 1][0],
-                    lng: routes[i + 1][1]
-                }
-            }
-        ],
+        locations: routes,
+
         options: {
             // routeType: 'bus'
             routeType: 'pedestrian'
         }
     });
 
-    // let legs01 = dir.route;
-    // console.log("legs01");
-    // console.log(legs01);
-    // console.log(dir.route.legs[0]);
-
-    let items = ["red", "yellow", "blue", "black", "darkblue", "brown", "violet"];
-    let k = items[Math.floor(Math.random() * items.length)];
-
     mymap.addLayer(MQ.routing.routeLayer({
-        ribbonOptions: { draggable: true, ribbonDisplay: { color: k, opacity: 0.3 } },
         directions: dir,
         fitBounds: false
     }));
-    // console.log("MQ");
-    // console.log(MQ);
-    if (i < routes.length - 2) {
-        i += 1;
-        // console.log("routes.length");
-        // console.log(routes.length);
-        // console.log("i");
-        // console.log(i);
-        myFunction1();
-    }
+
+    // let items = ["red", "yellow", "blue", "black", "darkblue", "brown", "violet"];
+    // let k = items[Math.floor(Math.random() * items.length)];
+
+    // mymap.addLayer(MQ.routing.routeLayer({
+    //     ribbonOptions: { draggable: true, ribbonDisplay: { color: 'red', opacity: 0.3 } },
+    //     directions: dir,
+    //     fitBounds: false
+    // }));
+
+
 
 
 }
