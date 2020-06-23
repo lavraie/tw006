@@ -128,11 +128,6 @@ function myFunction(amenity) {
                             // <span id=${i}><i class="arrow up"></i></span>
                         };
                         let marker;
-                        // const node = document.createElement("LI");
-                        // const textnode = document.createTextNode(pop01);
-                        // node.appendChild(textnode);
-                        // const node01 = node.cloneNode(true);
-                        // node01.setAttribute("class", "cafes01");
                         marker = new L.marker([item.lat, item.lon]);
                         marker._id = i;
                         let _markerOnClick = function(e) {
@@ -214,6 +209,7 @@ function myFunction11() {
 }
 
 function myFunction1() {
+    let dist = 0;
     let routes = [];
     let routesEl = document.getElementById("cafes02");
     let routesEl01 = [...routesEl.getElementsByTagName("SPAN")];
@@ -238,7 +234,6 @@ function myFunction1() {
                     console.log(maneuvers01);
                 }
             }
-            let dist = 0;
             for (i = 0; i < maneuvers01.length; i++) {
                 html += (i + 1) + '. ';
                 html += maneuvers01[i].narrative + ' ';
@@ -247,7 +242,7 @@ function myFunction1() {
                 dist += maneuvers01[i].distance * 1000;
             }
             console.log(dist);
-            L.DomUtil.get('cafes03').innerHTML += ' ' + dist + 'm';
+            L.DomUtil.get('cafes03').innerHTML = 'Distance: ' + dist + 'm';
             L.DomUtil.get('route-narrative').insertAdjacentHTML('beforeend', html);
         });
     dir.route({
