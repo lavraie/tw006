@@ -292,23 +292,7 @@ function myFunction1() {
         });
 
 
-    // locations01 = [];
-    // for (n = 0; n < routes.length; n += 2) {
-    //     locations01.push({
-    //         latLng: {
-    //             lat: routes[n][0],
-    //             lng: routes[n][1]
-    //         }
-    //     }, {
-    //         latLng: {
-    //             lat: routes[n + 1][0],
-    //             lng: routes[n + 1][1]
-    //         }
-    //     });
 
-    // };
-    // console.log("locations01");
-    // console.log(locations01);
     dir.route({
         locations: routes,
 
@@ -317,8 +301,12 @@ function myFunction1() {
             routeType: 'pedestrian'
         }
     });
+    let items = ["red", "yellow", "blue", "black", "darkblue", "brown", "violet"];
+    let k = items[Math.floor(Math.random() * items.length)];
 
     mymap.addLayer(MQ.routing.routeLayer({
+        ribbonOptions: { draggable: true, ribbonDisplay: { color: k, opacity: 0.3 } },
+
         directions: dir,
         fitBounds: false
     }));
