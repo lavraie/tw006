@@ -212,19 +212,12 @@ function myFunction11() {
     console.log(i);
     i += 1;
 }
-// let i = 0;
-// let n = 0;
-// let dir;
+
 function myFunction1() {
     let routes = [];
     let routesEl = document.getElementById("cafes02");
     let routesEl01 = [...routesEl.getElementsByTagName("SPAN")];
-    // console.log("routesEl");
-    // console.log(routesEl);
-    // console.log("routesEl01");
-    // console.log(routesEl01);
     for (n = 0; n <= routesEl01.length - 1; n += 2) {
-        // routes.push([routesEl01[n].innerText, routesEl01[n + 1].innerText]);
         routes.push({ latLng: { lat: routesEl01[n].innerText, lng: routesEl01[n + 1].innerText } });
     }
     console.log("routes");
