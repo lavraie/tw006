@@ -215,7 +215,17 @@ function myFunction2(valueToClear) {
     console.log(mark);
 }
 
+function myFunction11() {
+    console.log(i);
+    i += 1;
+}
+let i = 0;
+let n = 0;
+let dir;
+
 function myFunction1() {
+    console.log(i);
+
     let routes = [];
     let routesEl = document.getElementById("cafes02");
     let routesEl01 = [...routesEl.getElementsByTagName("SPAN")];
@@ -223,8 +233,8 @@ function myFunction1() {
     // console.log(routesEl);
     // console.log("routesEl01");
     // console.log(routesEl01);
-    for (i = 0; i <= routesEl01.length - 1; i += 2) {
-        routes.push([routesEl01[i].innerText, routesEl01[i + 1].innerText]);
+    for (n = 0; n <= routesEl01.length - 1; n += 2) {
+        routes.push([routesEl01[n].innerText, routesEl01[n + 1].innerText]);
         // console.log("routes");
         // console.log(routes);
     }
@@ -234,60 +244,79 @@ function myFunction1() {
 
 
     L.DomUtil.get('route-narrative').innerHTML = '';
-    let dir;
     dir = MQ.routing.directions()
-        // .on('success', function(data) {
-        //     console.log(data.route.legs);
-        //     var legs = data.route.legs,
-        //         html = '',
-        //         maneuvers,
-        //         i;
-        //     if (legs && legs.length) {
-        //         maneuvers = legs[0].maneuvers;
-        //         for (i = 0; i < maneuvers.length; i++) {
-        //             html += (i + 1) + '. ';
-        //             html += maneuvers[i].narrative + '<br/>';
-        //         }
-        //         L.DomUtil.get('cafes03').innerHTML += ' ' + data.route.legs[0].distance + ' km';
-        //         L.DomUtil.get('route-narrative').innerHTML = html;
-        //     }
-        // });
-    for (i = 0; i < routes.length - 1; i++) {
-        console.log("routes[i][0]");
-        console.log("i");
-        console.log(i);
-        console.log(routes[i][0]);
-        console.log(routes[i + 1][0]);
-        console.log(routes[i][1]);
-        console.log(routes[i + 1][1]);
-        // var dir;
-        dir.route({
-            locations: [{
-                    latLng: {
-                        lat: routes[i][0],
-                        lng: routes[i][1]
-                    }
-                },
-                {
-                    latLng: {
-                        lat: routes[i + 1][0],
-                        lng: routes[i + 1][1]
-                    }
+        .on('success', function(data) {
+            let k = 0;
+            var legs = data.route.legs,
+                html = '',
+                maneuvers,
+                i;
+
+            if (legs && legs.length) {
+                console.log("legs.length");
+                console.log(legs.length);
+                console.log(legs);
+                maneuvers = legs[k].maneuvers;
+
+                for (i = 0; i < maneuvers.length; i++) {
+                    html += (i + 1) + '. ';
+                    html += maneuvers[i].narrative + '';
+                    html += '<br>';
                 }
-            ],
-            options: {
-                // routeType: 'bus'
-                routeType: 'pedestrian'
+                L.DomUtil.get('cafes03').innerHTML += ' ' + data.route.legs[0].distance + ' km';
+                L.DomUtil.get('route-narrative').insertAdjacentHTML('beforeend', html);
             }
+            k += 1;
         });
-        // let items = ["red", "yellow", "blue", "black", "lightblue"];
-        // let k = items[Math.floor(Math.random() * items.length)];
-        mymap.addLayer(MQ.routing.routeLayer({
-            ribbonOptions: { draggable: true, ribbonDisplay: { color: 'red', opacity: 0.3 } },
-            directions: dir,
-            fitBounds: false
-        }));
-        // console.log("MQ");
-        // console.log(MQ);
+    // console.log("iiiiiiii");
+    // console.log(i);
+    // console.log(routes[i][0]);
+    // console.log(routes[i + 1][0]);
+    // console.log(routes[i][1]);
+    // console.log(routes[i + 1][1]);
+    dir.route({
+        locations: [{
+                latLng: {
+                    lat: routes[i][0],
+                    lng: routes[i][1]
+                }
+            },
+            {
+                latLng: {
+                    lat: routes[i + 1][0],
+                    lng: routes[i + 1][1]
+                }
+            }
+        ],
+        options: {
+            // routeType: 'bus'
+            routeType: 'pedestrian'
+        }
+    });
+
+    // let legs01 = dir.route;
+    // console.log("legs01");
+    // console.log(legs01);
+    // console.log(dir.route.legs[0]);
+
+    let items = ["red", "yellow", "blue", "black", "darkblue", "brown", "violet"];
+    let k = items[Math.floor(Math.random() * items.length)];
+
+    mymap.addLayer(MQ.routing.routeLayer({
+        ribbonOptions: { draggable: true, ribbonDisplay: { color: k, opacity: 0.3 } },
+        directions: dir,
+        fitBounds: false
+    }));
+    // console.log("MQ");
+    // console.log(MQ);
+    if (i < routes.length - 2) {
+        i += 1;
+        // console.log("routes.length");
+        // console.log(routes.length);
+        // console.log("i");
+        // console.log(i);
+        myFunction1();
     }
+
+
 }
