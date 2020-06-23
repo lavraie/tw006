@@ -76,7 +76,13 @@ let routes = [];
 let mark = [];
 let cities = [];
 let assetLayer;
-let fn01;
+
+function fn01() {
+    console.log("fn01");
+    // console.log(e1);
+    // console.log(h);
+    // mymap.removeLayer(e1);
+}
 
 function myFunction(amenity) {
     console.log(amenity);
@@ -116,60 +122,77 @@ function myFunction(amenity) {
                         const listUl = document.getElementsByTagName("LI");
                         var i = listUl.length;
 
-                        var pop = `<dd>${item.tags.name}</dd><br><button name="btn02" id=${i} onclick = "fn01(id)" >Delete Marker </button>`;
-                        var pop01 = item.tags.name;
-                        fn01 = function btn01(id) {
-                            mymap.removeLayer(mark[id]);
-                            // document.getElementById("cafes03").appendChild(document.getElementById(id).parentElement);
+                        let pop02;
+                        fn02 = function btn02(id39, id40, id41, id42) {
+                            document.getElementById("cafes02").insertAdjacentHTML('beforeend', `<div id="two">${id39} ${id40} </div><span id="lat" hidden>${id41}</span></div><span id="lon" hidden>${id42}</span>`);
+                            console.log(document.getElementById("cafes02"));
+                            // <span id=${i}><i class="arrow up"></i></span>
+
+
                         };
                         let marker;
-                        const node = document.createElement("LI");
-                        const textnode = document.createTextNode(pop01);
-                        node.appendChild(textnode);
-                        const node01 = node.cloneNode(true);
-                        node01.setAttribute("class", "cafes01");
+                        // const node = document.createElement("LI");
+                        // const textnode = document.createTextNode(pop01);
+                        // node.appendChild(textnode);
+                        // const node01 = node.cloneNode(true);
+                        // node01.setAttribute("class", "cafes01");
                         marker = new L.marker([item.lat, item.lon]);
                         marker._id = i;
+                        let _markerOnClick = function(e) {
+                            let itTag = item.tags.name;
+                            let targetInnerHTML = e.target._popup._contentNode;
+                            targetInnerHTML.innerHTML = "";
+                            let id01 = e.target._leaflet_id;
+                            let fil01 = mark.find(el => el._leaflet_id == id01);
+                            let fil02 = mark.indexOf(fil01);
+                            let html01 = `<button name="btn02" id=${fil02} onclick='(function(){ mymap.removeLayer(mark[${fil02}]); })();'>Delete Marker 123 </button><br><br><dt>${itTag}</dt><br><button name="btn03" id=${i} onclick = "fn02('${amenity}', '${itTag}', '${item.lat}', '${item.lon}')" >Add to route</button>`;
+                            if (targetInnerHTML.innerHTML == "") {
+                                targetInnerHTML.innerHTML = html01;
+                            }
+
+                        };
                         mark.push(L.marker([item.lat, item.lon], {
                             icon: myIcon,
-                            title: amenity
-                        }).bindPopup(pop, {
+                            title: item.tags.name,
+                            amenity: amenity
+                        }).bindPopup(pop02, {
                             maxWidth: 'auto'
-                        }));
+                        }).addEventListener('click', _markerOnClick));
+
                         const latEl = `<span id=${i} hidden>${item.lat}</span>`;
                         const lonEl = `<span id=${i} hidden>${item.lon}</span>`;
                         const domString = `<span id=${i}><i class="arrow up"></i></span>`;
                         const domStringdown = `<span id=${i}><i class="arrow down"></i></span>`;
                         const close01 = `<span id=${i}><i class="close"> x </i></span>`;
                         const rightArrow = `<span id=${i}><i class="arrow right"></i></span>`;
-                        node01.innerHTML += " " + latEl + " " + lonEl + " " + domString + " " + i + " " + domStringdown + " " + close01 + " " + rightArrow;
-                        node01.addEventListener("click", (event) => {
-                            let li = event.target.parentElement.parentElement;
-                            const clName = document.getElementsByClassName("cafes23");
-                            const clNameIds = [];
-                            for (i = 0; i < clName.length; i++) {
-                                clNameIds.push(clName[i].id);
-                            }
-                            let found = clNameIds.indexOf(li.parentElement.id);
-                            if (event.target.className === 'arrow up') {
-                                li.parentElement.insertBefore(li, li.previousElementSibling);
-                            };
-                            if (event.target.className === 'arrow down') {
-                                li.parentElement.insertBefore(li.nextElementSibling, li);
-                            };
-                            if (event.target.className === 'arrow right') {
-                                clName[found + 1].appendChild(li);
-                            };
-                            if (event.target.className === 'close') {
-                                mymap.removeLayer(mark[marker._id]);
-                                // document.getElementById("cafes03").appendChild(document.getElementById(marker._id).parentElement);
-                                // document.getElementById(marker._id).parentElement.getElementsByClassName("close")[0].parentElement.hidden = true;
-                                // document.getElementById(marker._id).parentElement.getElementsByClassName("arrow right")[0].parentElement.hidden = true;
-                            };
-                        });
-                        document.getElementById("cafes").appendChild(node01);
+                        // node01.innerHTML += " " + latEl + " " + lonEl + " " + domString + " " + i + " " + domStringdown + " " + close01 + " " + rightArrow;
+                        // node01.addEventListener("click", (event) => {
+                        //     let li = event.target.parentElement.parentElement;
+                        //     const clName = document.getElementsByClassName("cafes23");
+                        //     const clNameIds = [];
+                        //     for (i = 0; i < clName.length; i++) {
+                        //         clNameIds.push(clName[i].id);
+                        //     }
+                        //     let found = clNameIds.indexOf(li.parentElement.id);
+                        //     if (event.target.className === 'arrow up') {
+                        //         li.parentElement.insertBefore(li, li.previousElementSibling);
+                        //     };
+                        //     if (event.target.className === 'arrow down') {
+                        //         li.parentElement.insertBefore(li.nextElementSibling, li);
+                        //     };
+                        //     if (event.target.className === 'arrow right') {
+                        //         clName[found + 1].appendChild(li);
+                        //     };
+                        //     if (event.target.className === 'close') {
+                        //         console.log("mark[marker._id]");
+                        //         console.log(mark[marker._id]);
+                        //         mymap.removeLayer(mark[marker._id]);
+
+
+                        ;
                     }
                     assetLayer = L.layerGroup(mark).addTo(mymap);
+                    console.log(mark);
                 });
             }
         )
@@ -179,7 +202,7 @@ function myFunction(amenity) {
 }
 
 function myFunction2(valueToClear) {
-    const result = mark.filter(e => e.options.title == valueToClear);
+    const result = mark.filter(e => e.options.amenity == valueToClear);
     result.forEach(myFunction);
 
     function myFunction(item, index) {
@@ -187,51 +210,57 @@ function myFunction2(valueToClear) {
         const indexOfMark = mark.indexOf(item);
         console.log(indexOfMark);
         mark.splice(indexOfMark, 1);
-
-
     }
     console.log("mark");
     console.log(mark);
-
 }
 
 function myFunction1() {
     let routes = [];
     let routesEl = document.getElementById("cafes02");
-    let routesEl01 = [...routesEl.getElementsByTagName("LI")];
-    for (i = 0; i < routesEl01.length; i++) {
-        routes.push([routesEl01[i].children[0].textContent, routesEl01[i].children[1].textContent])
+    let routesEl01 = [...routesEl.getElementsByTagName("SPAN")];
+    // console.log("routesEl");
+    // console.log(routesEl);
+    // console.log("routesEl01");
+    // console.log(routesEl01);
+    for (i = 0; i <= routesEl01.length - 1; i += 2) {
+        routes.push([routesEl01[i].innerText, routesEl01[i + 1].innerText]);
+        // console.log("routes");
+        // console.log(routes);
     }
+    // console.log("routes");
+    // console.log(routes);
+    // console.log(routes.length);
 
 
     L.DomUtil.get('route-narrative').innerHTML = '';
-
-    var dir;
+    let dir;
     dir = MQ.routing.directions()
-        .on('success', function(data) {
-            console.log(data.route.legs);
-            var legs = data.route.legs,
-                html = '',
-                maneuvers,
-                i;
-
-            if (legs && legs.length) {
-                maneuvers = legs[0].maneuvers;
-
-                for (i = 0; i < maneuvers.length; i++) {
-                    html += (i + 1) + '. ';
-                    html += maneuvers[i].narrative + '<br/>';
-                }
-                L.DomUtil.get('cafes03').innerHTML += ' ' + data.route.legs[0].distance + ' km';
-
-                L.DomUtil.get('route-narrative').innerHTML = html;
-            }
-        });
+        // .on('success', function(data) {
+        //     console.log(data.route.legs);
+        //     var legs = data.route.legs,
+        //         html = '',
+        //         maneuvers,
+        //         i;
+        //     if (legs && legs.length) {
+        //         maneuvers = legs[0].maneuvers;
+        //         for (i = 0; i < maneuvers.length; i++) {
+        //             html += (i + 1) + '. ';
+        //             html += maneuvers[i].narrative + '<br/>';
+        //         }
+        //         L.DomUtil.get('cafes03').innerHTML += ' ' + data.route.legs[0].distance + ' km';
+        //         L.DomUtil.get('route-narrative').innerHTML = html;
+        //     }
+        // });
     for (i = 0; i < routes.length - 1; i++) {
-        console.log("routes");
-        console.log(routes);
-        console.log(routes.length);
-        var dir;
+        console.log("routes[i][0]");
+        console.log("i");
+        console.log(i);
+        console.log(routes[i][0]);
+        console.log(routes[i + 1][0]);
+        console.log(routes[i][1]);
+        console.log(routes[i + 1][1]);
+        // var dir;
         dir.route({
             locations: [{
                     latLng: {
@@ -251,11 +280,10 @@ function myFunction1() {
                 routeType: 'pedestrian'
             }
         });
-
-        let items = ["red", "yellow", "blue", "black", "lightblue"];
-        let k = items[Math.floor(Math.random() * items.length)];
+        // let items = ["red", "yellow", "blue", "black", "lightblue"];
+        // let k = items[Math.floor(Math.random() * items.length)];
         mymap.addLayer(MQ.routing.routeLayer({
-            ribbonOptions: { draggable: true, ribbonDisplay: { color: k, opacity: 0.3 } },
+            ribbonOptions: { draggable: true, ribbonDisplay: { color: 'red', opacity: 0.3 } },
             directions: dir,
             fitBounds: false
         }));

@@ -1,3 +1,8 @@
+dt {
+    text-align: center;
+    background-color: rgb(163, 228, 206);
+}
+
 #countrySelect {
     margin: 15px;
     width: 100px;
