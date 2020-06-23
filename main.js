@@ -116,7 +116,7 @@ function myFunction(amenity) {
                         var myIcon = L.icon({
                             iconUrl: iconU,
                             iconSize: [50, 50],
-                            iconAnchor: [22, 94],
+                            // iconAnchor: [22, 94],
                             popupAnchor: [-3, -76],
                         });
                         const listUl = document.getElementsByTagName("LI");
