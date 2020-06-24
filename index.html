@@ -9,10 +9,117 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.js"></script>
     <script src="https://open.mapquestapi.com/sdk/leaflet/v2.2/mq-map.js?key=tLYgc73ZvPr0vM3p5DymagunmgVhVKKL"></script>
     <script src="https://open.mapquestapi.com/sdk/leaflet/v2.2/mq-routing.js?key=tLYgc73ZvPr0vM3p5DymagunmgVhVKKL"></script>
+
+    <!-- <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin="" /> -->-->
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <!-- <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>-->-->
+
+
     <title>Document Leaflet</title>
 </head>
 
 <body>
+    <script src="main.js"></script>
+    <div id="grid01">
+        <div class="btn-cafes">
+            <div>
+                <label class="countrySelect" for="countrySelect">Choose a country:</label>
+                <label for="citySelect">Choose a city:</label>
+            </div>
+            <div>
+                <select class="countrySelect" id="countrySelect" onChange="countrySelected()"></select>
+                <select id="citySelect" onChange="citySelected()"></select>
+            </div>
+            <div>
+                <button class="button01" id="button01-01" value="cafe" onclick="myFunction(this.value)">V &emsp;cafes</button>
+                <button class="button01" id="button01-02" value="cafe" onclick="myFunction2(this.value)">X &emsp;cafes</button>
+                <button class="button01" id="button01-03" value="restaurant" onclick="myFunction(this.value)">V  restaurants</button>
+                <button class="button01" id="button01-04" value="restaurant" onclick="myFunction2(this.value)">X  restaurants</button>
+                <button class="button01" id="button01-05" value="cinema" onclick="myFunction(this.value)">V &emsp;cinemas</button>
+                <button class="button01" id="button01-06" value="cinema" onclick="myFunction2(this.value)">X &emsp;cinemas</button>
+                <button class="button01" id="button01-07" onclick="myFunction1(0)">V &emsp;directions</button>
+                <button onclick="{mymap.removeLayer(cities);cities.clearLayers();console.log(cities);console.log(L);}">V &emsp;remove</button>
+            </div>
+            <div class="cafes">
+                <ul class="cafes23" id="cafes02" style="background-color:blueviolet"> </ul>
+                <ul class="cafes23" id="cafes03" style="background-color:red">Distance:</ul>
+                <div style="overflow: auto; width:400px; height:585px; background-color:aqua;" id="route-narrative">route</div>
+                <ol class="cafes23" id="cafes" style="background-color:rgb(211, 209, 113); visibility: hidden;">cafes</ol>
+            </div>
+        </div>
+        <div class="mapid01" id="mapid">
+            <script>
+                var mymap = L.map('mapid', {
+                    layers: MQ.mapLayer(),
+                }).setView([51.505, -0.09], 14);
+                var mapstyle = 'https://a.tiles.mapbox.com/v3/mapbox.world-bright/{z}/{x}/{y}.png';
+                L.tileLayer(mapstyle, {
+                    maxZoom: 16,
+                    minZoom: 1,
+                    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+                        '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+                        'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+                    id: 'mapbox/streets-v11',
+                    tileSize: 512,
+                    zoomOffset: -1
+                }).addTo(mymap);
+                cities = L.layerGroup();
+            </script>
+        </div>
+    </div>
+</body>
+
+</html>
+
+
+
+<!--
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="mystyle.css">
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css" /> -->
+<!-- <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" /> -->
+<!-- <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"></script> -->
+<!-- <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script> -->
+
+
+
+
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.css" /> -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.js"></script> -->
+
+<!-- <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script> -->
+<!-- <script src="https://open.mapquestapi.com/sdk/leaflet/v2.2/mq-map.js?key=tLYgc73ZvPr0vM3p5DymagunmgVhVKKL"></script> -->
+<!-- <script src="https://open.mapquestapi.com/sdk/leaflet/v2.2/mq-routing.js?key=tLYgc73ZvPr0vM3p5DymagunmgVhVKKL"></script> -->
+
+<!-- <script src="https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.js"></script> -->
+<!-- <link type="text/css" rel="stylesheet" href="https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.css" /> -->
+<!-- <script src="https://api.mqcdn.com/sdk/place-search-js/v1.0.0/place-search.js"></script> -->
+<!-- <link type="text/css" rel="stylesheet" href="https://api.mqcdn.com/sdk/place-search-js/v1.0.0/place-search.css" /> -->
+<!-- <script src="https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.js"></script> -->
+<!-- <link type="text/css" rel="stylesheet" href="https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.css" /> -->
+
+<!-- <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin="" /> -->
+<!-- Make sure you put this AFTER Leaflet's CSS -->
+<!-- <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script> -->
+<!--
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.js"></script>
+    <script src="https://open.mapquestapi.com/sdk/leaflet/v2.2/mq-map.js?key=tLYgc73ZvPr0vM3p5DymagunmgVhVKKL"></script>
+    <script src="https://open.mapquestapi.com/sdk/leaflet/v2.2/mq-routing.js?key=tLYgc73ZvPr0vM3p5DymagunmgVhVKKL"></script>
+    <title>Document Leaflet</title>
+</head>
+
+<body>
+    <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"></script> 
+    <<script src="leaflet-routing-machine.js"></script> 
     <script src="main.js"></script>
     <div id="grid01">
         <div class="btn-cafes">
@@ -40,25 +147,50 @@
                 <ol class="cafes23" id="cafes" style="background-color:rgb(211, 209, 113); visibility: hidden;">cafes</ol>
             </div>
         </div>
-        <div class="mapid01" id="mapid">
-            <script>
-                var mymap = L.map('mapid', {
-                    layers: MQ.mapLayer(),
-                }).setView([51.505, -0.09], 14);
-                var mapstyle = 'https://a.tiles.mapbox.com/v3/mapbox.world-bright/{z}/{x}/{y}.png';
-                L.tileLayer(mapstyle, {
-                    maxZoom: 16,
-                    minZoom: 1,
-                    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
-                        '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-                        'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-                    id: 'mapbox/streets-v11',
-                    tileSize: 512,
-                    zoomOffset: -1
-                }).addTo(mymap);
-            </script>
-        </div>
+        <div class="mapid01" id="mymap"></div>
+        <script>
+            var mymap = L.map('mapid', {
+                layers: MQ.mapLayer(),
+            }).setView([51.505, -0.09], 14);
+            var mapstyle = 'https://a.tiles.mapbox.com/v3/mapbox.world-bright/{z}/{x}/{y}.png';
+            L.tileLayer(mapstyle, {
+                maxZoom: 16,
+                minZoom: 1,
+                attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+                    '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+                    'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+                id: 'mapbox/streets-v11',
+                tileSize: 512,
+                zoomOffset: -1
+            }).addTo(mymap);
+
+            // var mymap = L.map('mymap', {
+            //     layers: MQ.mapLayer(),
+            // }).setView([51.505, -0.09], 13);
+            // // L.mapquest.key = 'tLYgc73ZvPr0vM3p5DymagunmgVhVKKL';
+
+            // L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+            //     maxZoom: 18,
+            //     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+            //         '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+            //         'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+            //     id: 'mapbox/streets-v11',
+            //     tileSize: 512,
+            //     zoomOffset: -1
+            // }).addTo(mymap);
+            // L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            //     attribution: '© OpenStreetMap contributors'
+            // }).addTo(mymap);
+
+            // L.Routing.control({
+            //     waypoints: [
+            //         L.latLng(51.505, -0.09),
+            //         L.latLng(51.505, 2)
+            //     ]
+            // }).addTo(mymap);
+        </script>
     </div>
 </body>
 
 </html>
+-->
