@@ -219,6 +219,7 @@ function myFunction(amenity) {
                         }).bindPopup(pop02, {
                             maxWidth: 'auto'
                         }).addEventListener('click', _markerOnClick));
+                        // .bindLabel('A sweet static label!', { noHide: true });
                         // .bindTooltip(item.tags.name, {
                         //     permanent: true,
                         //     direction: 'bottom'
