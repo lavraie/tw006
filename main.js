@@ -89,7 +89,12 @@ function citySelected() {
 
     // mymap.panTo({ lat: result1[0].lat, lng: result1[0].lng });
     // mymap.flyTo({ speed: 0.5, zoom: 15, pitch: 60, bearing: 180, center: [-122.3989808, 37.7517676] });
-    mymap.flyTo([result1[0].lat, result1[0].lng], 13);
+    mymap.setView([result1[0].lat, result1[0].lng], 13);
+    L.marker(mymap._initialCenter)
+        // .bindLabel('A sweet static label!', {
+        // noHide: true
+        // })
+        .addTo(mymap);
     // var marker = L.marker([result1[0].lat, result1[0].lng]).addTo(mymap);
     var bounds = mymap.getBounds();
     console.log("bounds");
