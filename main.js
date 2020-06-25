@@ -82,19 +82,9 @@ function citySelected() {
         return codeSelected.name == el;
     });
     console.log([result1[0].lat, result1[0].lng]);
-    // mymap.flyTo([result1[0].lat, result1[0].lng], 14);
-    // console.log(mymap.getBounds());
-    // L.mapquest.geocoding().geocode('Boston, MA');
-    // L.mapquest.setView([result1[0].lat, result1[0].lng], 13);;
 
-    // mymap.panTo({ lat: result1[0].lat, lng: result1[0].lng });
-    // mymap.flyTo({ speed: 0.5, zoom: 15, pitch: 60, bearing: 180, center: [-122.3989808, 37.7517676] });
     mymap.setView([result1[0].lat, result1[0].lng], 13);
-    L.marker(mymap._initialCenter)
-        // .bindLabel('A sweet static label!', {
-        // noHide: true
-        // })
-        .addTo(mymap);
+    L.marker(mymap._initialCenter).addTo(mymap);
     // var marker = L.marker([result1[0].lat, result1[0].lng]).addTo(mymap);
     var bounds = mymap.getBounds();
     console.log("bounds");
