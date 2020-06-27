@@ -3,6 +3,16 @@ dt {
     background-color: rgb(163, 228, 206);
 }
 
+.countrySelect {
+    text-align: left;
+}
+
+#countrySelect01,
+#citySelect01 {
+    text-align: center;
+    font-size: large;
+}
+
 #countrySelect {
     margin: 15px;
     width: 100px;
@@ -10,7 +20,24 @@ dt {
 
 #countrySelect option {
     margin: 15px;
-    /* width: 150px; */
+}
+
+.button-open:hover:after {
+    content: "Select this one";
+    font-family: Arial;
+    position: absolute;
+    height: 1.25rem;
+    background-image: linear-gradient(to right, #26b482 12%, #93F9B9 30%);
+    color: black;
+}
+
+.button-close:hover:after {
+    content: "Remove this one";
+    font-family: Arial;
+    position: absolute;
+    height: 1.25rem;
+    background-image: linear-gradient(to right, #bd1d1d 12%, #ff7689 30%);
+    color: black;
 }
 
 #citySelect {
@@ -20,14 +47,18 @@ dt {
 
 #cityySelect option {
     margin: 15px;
-    /* width: 150px; */
+}
+
+#cafes03,
+#cafes02,
+#route-narrative {
+    font-size: medium;
 }
 
 #grid01 {
     display: grid;
     text-align: center;
     background-color: rgb(163, 228, 206);
-    /* width: 1fr; */
     border: 5px solid green;
     padding: 5px;
     margin: 5px;
@@ -42,7 +73,6 @@ dt {
 .btn-cafes {
     background-color: rgb(139, 196, 137);
     grid-area: 1 / 4 / 1 / 4;
-    /* grid-area: left; */
 }
 
 .button01:hover {
@@ -55,44 +85,28 @@ dt {
 
 .cafes,
 .cafes23 {
-    text-align: center;
-    padding: 2px;
+    text-align: left;
+    padding: 10px;
     font-size: 0.8rem;
-    /* grid-area: 2 / 1 / 4 / 1; */
 }
 
-#button01-01,
-#button01-03,
-#button01-05,
-#button01-07 {
+.button-open {
     background-image: linear-gradient(to right, #26b482 12%, #93F9B9 30%);
 }
 
-#button01-02,
-#button01-04,
-#button01-06 {
+.button-close {
     background-image: linear-gradient(to right, #bd1d1d 12%, #ff7689 30%);
 }
 
 .button01 {
     height: 25px;
     width: 120px;
-    /* background-color: #4CAF50; */
     border-radius: 3px;
     border: 1px solid #c4c4c4;
-    /* background-color: transparent; */
     font-size: 1rem;
     color: #333;
-    /* background-image: linear-gradient(to bottom, transparent, transparent 50%, rgba(0, 0, 0, .04)); */
-    /* box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .05), inset 0 1px 0 0 rgba(255, 255, 255, .45), inset 0 -1px 0 0 rgba(255, 255, 255, .15), 0 1px 0 0 rgba(255, 255, 255, .15); */
-    /* text-shadow: 0 1px rgba(255, 255, 255, .4); */
     text-align: left;
-    /* margin: 3px; */
-    /* grid-area: menu; */
 }
-
-
-/* Darker background-color on hover */
 
 ul li:hover {
     background: #ddd;
@@ -115,20 +129,21 @@ ul li.checked {
 
 .close {
     cursor: pointer;
-    /* position: absolute; */
     top: 50%;
     right: 0%;
-    /* padding: 5px 10px; */
-    /* transform: translate(0%, -50%); */
 }
 
-
-/* Style the list (remove margins and bullets, etc) */
+.close:hover:after {
+    content: "Remove this choice";
+    font-family: Arial;
+    position: absolute;
+    height: 1.25rem;
+    background-color: rgb(183, 243, 188);
+    color: black;
+}
 
 ul {
     list-style-type: none;
-    /* padding: 0; */
-    /* margin: 0; */
 }
 
 .arrow {
@@ -158,7 +173,27 @@ ul {
     -webkit-transform: rotate(-135deg);
 }
 
+.up:hover:after {
+    transform: rotate(135deg);
+    content: "Move this one up";
+    font-family: Arial;
+    position: absolute;
+    height: 1.25rem;
+    background-color: rgb(183, 243, 188);
+    color: black;
+}
+
 .down {
     transform: rotate(45deg);
     -webkit-transform: rotate(45deg);
+}
+
+.down:hover:after {
+    transform: rotate(-45deg);
+    content: "Move this one down";
+    font-family: Arial;
+    position: absolute;
+    height: 1.25rem;
+    background-color: rgb(183, 243, 188);
+    color: black;
 }

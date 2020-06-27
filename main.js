@@ -1,39 +1,9 @@
-// store urls to fetch in an array
 const urls = [
-    //'https://dog.ceo/api/breeds/list',
-    //'https://dog.ceo/api/breeds/image/random',
     'https://restcountries.eu/rest/v2/all',
     //'https://datahub.io/core/world-cities/r/world-cities.json',
     'https://raw.githubusercontent.com/lutangar/cities.json/master/cities.json',
     //'https://pkgstore.datahub.io/core/world-cities/world-cities_json/data/5b3dd46ad10990bca47b04b4739a02ba/world-cities_json.json'
 ];
-// use map() to perform a fetch and handle the response for each url
-
-// window.onload = function() {
-//     L.mapquest.key = 'tLYgc73ZvPr0vM3p5DymagunmgVhVKKL';
-
-//     var mymap = L.mapquest.map('mymap', {
-//         center: [40.7128, -74.0059],
-//         layers: L.mapquest.tileLayer('map'),
-//         zoom: 13
-//     });
-//     mymap.addControl(L.mapquest.control());
-//     console.log(mymap);
-//     console.log(mymap.options.center);
-//     // mymap.addControl(L.mapquest.control());
-//     // mymap.addControl(L.mapquest.geocodingControl({
-//     // position: 'topleft'
-//     // }));
-
-//     // L.mapquest.geocoding().geocode('Boston, MA');
-
-//     // L.mapquest.directions().route({
-//     //     start: '350 5th Ave, New York, NY 10118',
-//     //     end: 'One Liberty Plaza, New York, NY 10006'
-//     // });
-//     L.map('mymap').setView([51.505, -0.09], 13);
-
-// }
 
 var data5 = [];
 async function promiseAll() {
@@ -51,7 +21,7 @@ async function promiseAll() {
             getData2(data4);
         })
 }
-// do something with the data
+
 function parseJSON(response) {
     return response.json();
 };
@@ -81,14 +51,9 @@ function citySelected() {
     var result1 = data5[1].filter(function(codeSelected) {
         return codeSelected.name == el;
     });
-    console.log([result1[0].lat, result1[0].lng]);
 
     mymap.setView([result1[0].lat, result1[0].lng], 13);
     L.marker(mymap._initialCenter).addTo(mymap);
-    // var marker = L.marker([result1[0].lat, result1[0].lng]).addTo(mymap);
-    var bounds = mymap.getBounds();
-    console.log("bounds");
-    console.log(bounds);
 }
 
 function getData2(name) {
@@ -108,17 +73,8 @@ let routes = [];
 let mark = [];
 let cities = [];
 let assetLayer;
-// function fn01() {
-//     console.log("fn01");
-//     // console.log(e1);
-//     // console.log(h);
-//     // mymap.removeLayer(e1);
-// }
+
 function myFunction(amenity) {
-    console.log(amenity);
-    // amenity = amenity;
-    // var bounds = mymap.getBounds();
-    console.log(mymap);
     var bounds = mymap.getBounds();
     let url = `https://www.overpass-api.de/api/interpreter?data=[out:json];node[amenity=${amenity}](${bounds._southWest.lat},${bounds._southWest.lng},${bounds._northEast.lat},${bounds._northEast.lng});out meta;`;
     fetch(url)
@@ -129,7 +85,6 @@ function myFunction(amenity) {
                         response.status);
                     return;
                 }
-                // Examine the text in the response
                 response.json().then(function response(data) {
                     let el = data.elements;
                     el.forEach(sortFunc);
@@ -148,38 +103,33 @@ function myFunction(amenity) {
                         var myIcon = L.icon({
                             iconUrl: iconU,
                             iconSize: [50, 50],
-                            // iconAnchor: [22, 94],
-                            popupAnchor: [-3, -76],
                         });
                         const listUl = document.getElementsByTagName("LI");
                         var i = listUl.length;
                         let pop02;
                         fn02 = function(id39, id40, id41, id42, id43) {
-                            document.getElementById("cafes02").insertAdjacentHTML('beforeend', `<div lat=${id41} lon=${id42} id=${id43} >${id39} ${id40}<span onClick="fn03()" >&ensp;<i class="arrow up"></i></span><span onClick="fn04()" >&ensp;<i class="arrow down"></i></span><span id=${id43} onClick="fn05()">&ensp;<i class="close">x</i></span>&ensp;<span id=${id43} onClick="fn05(this.id)" class="close"><i>X</i></span> </div>`);
-                            // document.getElementById("cafes02").insertAdjacentHTML('beforeend', `<div id="two" onClick="fn03()">${id39} ${id40} </div><span id="lat" hidden>${id41}</span></div><span id="lon" hidden>${id42}</span>`);
-                            console.log(document.getElementById("cafes02"));
-                            console.log("leafletId: " + id43);
+                            document.getElementById("cafes02").insertAdjacentHTML('beforeend', `<div lat=${id41} lon=${id42} id=${id43} >${id39} ${id40}<span onClick="fn03()" >&ensp;<i class="arrow up"></i></span><span onClick="fn04()" >&ensp;<i class="arrow down"></i></span><span id=${id43} onClick="fn05()">&ensp;<i class="close">x</i></span></div>`);
                         };
                         fn03 = function() {
                             li02 = event.srcElement.parentElement.parentElement;
                             li02.parentElement.insertBefore(li02, li02.previousElementSibling);
                         }
                         fn04 = function() {
-                            li02 = event.srcElement.parentElement.parentElement;
-                            li02.parentElement.insertBefore(li02.nextElementSibling, li02);
-                        }
+                                li02 = event.srcElement.parentElement.parentElement;
+                                li02.parentElement.insertBefore(li02.nextElementSibling, li02);
+                            }
+                            // &ensp;<span id=${id43} onClick="fn05(this.id)" class="close"><i>X</i></span> 
                         fn05 = function(id) {
                             li02 = event.srcElement.parentElement.parentElement;
                             li02.parentNode.removeChild(li02);
-                            if (id != null) {
-                                console.log(id);
-                                const result = mark.find(e => e._leaflet_id == id);
-                                mymap.removeLayer(mark[mark.indexOf(result)]);
-                                console.log(mark);
-                                mark.splice(mark.indexOf(result), 1);
-                                console.log(mark);
-                            }
-                            // remove from mark without splicing or not?? see _leaflet_id attached to the cafes li
+                            // if (id != null) {
+                            //     console.log(id);
+                            //     const result = mark.find(e => e._leaflet_id == id);
+                            //     mymap.removeLayer(mark[mark.indexOf(result)]);
+                            //     console.log(mark);
+                            //     mark.splice(mark.indexOf(result), 1);
+                            //     console.log(mark);
+                            // }
                         }
                         fn06 = function(id, ld) {
                             let routesEl = document.getElementById("cafes02");
@@ -190,7 +140,6 @@ function myFunction(amenity) {
                             }
                             mymap.removeLayer(mark[ld]);
                             mark.splice(ld, 1);
-                            // '(function(){ mymap.removeLayer(mark[${fil02}]); })();'
                         }
                         let marker;
                         marker = new L.marker([item.lat, item.lon]);
@@ -222,8 +171,6 @@ function myFunction(amenity) {
 
                     }
                     assetLayer = L.layerGroup(mark).addTo(mymap);
-                    console.log("mark");
-                    console.log(mark);
                 });
             }
         )
@@ -239,27 +186,18 @@ function myFunction2(valueToClear) {
     function myFunction(item, index) {
         mymap.removeLayer(result[index]);
         const indexOfMark = mark.indexOf(item);
-        // console.log("indexOfMark");
-        // console.log(indexOfMark);
         mark.splice(indexOfMark, 1);
     }
-    // console.log("mark");
-    // console.log(mark);
 }
 
 function myFunction1() {
     let dist = 0;
     let routes = [];
     let routesEl = document.getElementById("cafes02");
-    // let routesEl01 = [...routesEl.getElementsByTagName("SPAN")];
     let routesEl01 = [...routesEl.getElementsByTagName("DIV")];
-    // console.log("routesEl01");
-    // console.log(routesEl01);
     for (n = 0; n <= routesEl01.length - 1; n++) {
         routes.push({ latLng: { lat: routesEl01[n].attributes.lat.nodeValue, lng: routesEl01[n].attributes.lon.nodeValue } });
     }
-    // console.log("routes");
-    // console.log(routes);
     L.DomUtil.get('route-narrative').innerHTML = '';
     dir = MQ.routing.directions()
         .on('success', function(data) {
@@ -267,13 +205,9 @@ function myFunction1() {
                 maneuvers01 = [],
                 html = '',
                 i;
-            // console.log("onsuccess");
-            // console.log(legs);
             if (legs && legs.length) {
                 for (i = 0; i < legs.length; i++) {
                     legs[i].maneuvers.forEach(element => maneuvers01.push(element));
-                    // console.log("maneuvers01");
-                    // console.log(maneuvers01);
                 }
             }
             for (i = 0; i < maneuvers01.length; i++) {
@@ -283,7 +217,6 @@ function myFunction1() {
                 html += '<br>';
                 dist += maneuvers01[i].distance * 1000;
             }
-            // console.log(dist);
             L.DomUtil.get('cafes03').innerHTML = 'Distance: ' + dist + 'm';
             L.DomUtil.get('route-narrative').insertAdjacentHTML('beforeend', html);
         });
@@ -303,7 +236,5 @@ function myFunction1() {
     })).addTo(cities);
 
     mymap.addLayer(cities);
-    console.log("MQ");
-    console.log(cities);
-    // mymap.removeLayer(cities);
+
 }
